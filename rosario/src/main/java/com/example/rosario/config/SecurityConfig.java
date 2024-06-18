@@ -2,9 +2,10 @@ package com.example.rosario.config;
 
 import com.example.rosario.security.CustomAccessDeniedHandler;
 import com.example.rosario.service.CustomUserDetailsService;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -14,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 @Configuration
 @EnableWebSecurity
@@ -107,14 +109,16 @@ private final CustomUserDetailsService customUserDetailsService;
                         .requestMatchers("/user/**").hasRole("USER")
                         .requestMatchers("/api/customers/register").permitAll() // 회원가입 URL 허용
                         .requestMatchers("/api/sellers/register").permitAll() // 회원가입 URL 허용
+
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> httpBasic.disable()) // HTTP Basic 인증 비활성화 (폼로그인으로 대체)
                 .formLogin(form -> form
-                        .loginPage("/loginPage") // /login 설정시 문제발생, 회피할것
-                        .loginProcessingUrl("/perform_login") // 미설정시 POST /login 요청을 처리해야 하나 문제발생, 다음처럼 설정할것
-                        .defaultSuccessUrl("/", true) // 로그인 성공 시 이동 경로
+                        .loginPage("/loginPage")    // /login 설정시 문제발생, 회피할것
+                        .loginProcessingUrl("/perform_login")   //미설정시 POST /login 요청을 처리해야 하나 문제발생, 다음처럼 설정할것
+                        .defaultSuccessUrl("/", true)   //로그인 성공 시 이동 경로
                         .permitAll()
+
                 )
                 // 로그아웃은 /logout URL 이 기본값이며 동작함
                 .logout(logout -> logout
@@ -159,5 +163,11 @@ private final CustomUserDetailsService customUserDetailsService;
                         .maxAge(3600); // 캐시 유지 시간
             }
         };
+    }
+    @Bean
+    public AuthenticationManager authenticationManagerBean(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        builder.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+        return builder.build();
     }
 }

@@ -1,84 +1,53 @@
 package com.example.rosario.controller;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import com.example.rosario.dto.LoginRequest;
+import com.example.rosario.service.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@Slf4j
+@RestController
 public class LoginController {
 
-    @GetMapping("/loginPage")
-    public String loginPage() {
-        log.info("로그인 페이지");
-        return "loginPage"; // loginPage.html 파일을 반환
-    }//p
+    private final AuthenticationManager authenticationManager;
+    private final CustomUserDetailsService userDetailsService;
+
+    @Autowired
+    public LoginController(AuthenticationManager authenticationManager, CustomUserDetailsService userDetailsService) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+    }
 
     @PostMapping("/perform_login")
-    public String performLogin(@RequestParam String username, @RequestParam String password) {
-        log.info("로그인 시도: 사용자명 = " + username);
-        // Spring Security가 인증 과정을 처리하므로 이 메서드는 실제로 사용되지 않습니다.
-        // 그러나 로깅 등의 목적으로 사용할 수 있습니다.
-        return "redirect:/"; // 로그인 성공 후 리다이렉트
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+        try {
+            // 사용자 정보를 기반으로 Authentication 객체를 생성
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
+
+            // AuthenticationManager를 통해 인증을 시도하고, 인증된 Authentication 객체 반환
+            Authentication authentication = authenticationManager.authenticate(token);
+
+            // SecurityContext에 인증 객체 설정
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            // 인증된 사용자의 UserDetails 정보를 가져옴
+            UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getEmail());
+
+            // 추가적인 작업 수행 (예: 토큰 생성, 사용자 정보 반환 등)
+            // 이 예제에서는 간단히 성공 메시지를 반환
+            return ResponseEntity.ok("Login successful for user: " + userDetails.getUsername());
+        } catch (UsernameNotFoundException ex) {
+            return ResponseEntity.badRequest().body("Invalid credentials");
+        } catch (Exception ex) {
+            return ResponseEntity.status(500).body("An error occurred during login");
+        }
     }
 }
-//import React, { useState } from 'react';
-//        import axios from 'axios';
-//        import { useHistory } from 'react-router-dom';
-//
-//        function LoginPage() {
-//        const [credentials, setCredentials] = useState({
-//        username: '',
-//        password: '',
-//        });
-//        const history = useHistory();
-//
-//        const handleChange = (e) => {
-//        const { name, value } = e.target;
-//        setCredentials((prevState) => ({
-//        ...prevState,
-//        [name]: value,
-//        }));
-//        };
-//
-//        const handleLogin = async (event) => {
-//        event.preventDefault();
-//        try {
-//        await axios.post('/perform_login', credentials);
-//        history.push('/');
-//        } catch (error) {
-//        console.error('로그인 오류:', error);
-//        }
-//        };
-//
-//        return (
-//<div>
-//<h2>로그인</h2>
-//<form onSubmit={handleLogin}>
-//<div>
-//<label htmlFor="username">사용자명:</label>
-//<input
-//            type="text"
-//                    id="username"
-//                    name="username"
-//                    value={credentials.username}
-//                    onChange={handleChange}
-//                    />
-//</div>
-//<div>
-//<label htmlFor="password">비밀번호:</label>
-//<input
-//            type="password"
-//                    id="password"
-//                    name="password"
-//                    value={credentials.password}
-//                    onChange={handleChange}
-//                    />
-//</div>
-//<button type="submit">로그인</button>
-//</form>
-//</div>
-//        );
-//        }
-//
-//        export default LoginPage;
