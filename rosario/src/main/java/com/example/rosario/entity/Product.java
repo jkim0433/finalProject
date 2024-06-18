@@ -17,12 +17,12 @@ public class Product {
     private Long productId;         // 상품ID
 
 
-    //@NotBlank(message = "상품명은 필수 입력 항목입니다.")
+//    @NotBlank(message = "상품명은 필수 입력 항목입니다.")
     @Column(nullable = false)
     private String productNm;       // 상품명
 
-    //@NotNull(message = "상품가격은 필수 입력 항목입니다.")
-    //@Min(value = 0, message = "상품가격은 0 이상이어야 합니다.")
+//    @NotNullull(message = "상품가격은 필수 입력 항목입니다.")
+//    @Min(value = 0, message = "상품가격은 0 이상이어야 합니다.")
     @Column(nullable = false)
     private Long productPrice;      // 상품가격
 

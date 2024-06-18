@@ -1,13 +1,14 @@
 package com.example.rosario.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 
 @Entity
-@Table(name = "chiptag")
+@Table(name = "chipTag")
+@Getter
+@Setter
 public class ChipTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

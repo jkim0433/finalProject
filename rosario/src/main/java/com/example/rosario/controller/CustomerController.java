@@ -2,7 +2,7 @@ package com.example.rosario.controller;
 
 import com.example.rosario.dto.CustomerDto;
 import com.example.rosario.entity.Customer;
-import com.example.rosario.sevice.CustomerService;
+import com.example.rosario.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

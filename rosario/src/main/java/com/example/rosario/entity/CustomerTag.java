@@ -1,7 +1,7 @@
 package com.example.rosario.entity;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
+
 @Entity
 @Table(name = "customerTag")
 public class CustomerTag {

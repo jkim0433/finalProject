@@ -1,4 +1,4 @@
-package com.example.rosario.sevice;
+package com.example.rosario.service;
 
 import com.example.rosario.dto.CustomerDto;
 import com.example.rosario.entity.Customer;

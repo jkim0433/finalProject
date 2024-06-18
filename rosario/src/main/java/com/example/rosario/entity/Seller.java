@@ -1,9 +1,7 @@
 package com.example.rosario.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
@@ -12,6 +10,8 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "seller")
+@Getter
+@Setter
 public class Seller {
 
     @Id
@@ -36,4 +36,9 @@ public class Seller {
 
     @Column(nullable = false)
     private String sellerEmailAdr;     // 판매자이메일주소
+
+
+    private String sellerPassword;  // Add a password field
+
+
 }

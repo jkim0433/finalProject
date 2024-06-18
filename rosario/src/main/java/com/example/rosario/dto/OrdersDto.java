@@ -7,24 +7,14 @@ import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
-@Entity
-@Table(name = "orders")
-public class OrdersDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ordersId;
 
+public class OrdersDto {
+    private Long ordersId;
     private String orders;
     private Long totalNum;
     private Long ordersEA;
     private String ordersAdr;
     private Date ordersDate;
-
-    @ManyToOne
-    @JoinColumn(name = "customerId")
-    private Customer customer;
-
-    @ManyToOne
-    @JoinColumn(name = "productId")
-    private Product product;
+    private Long customerId;
+    private Long productId;
 }
