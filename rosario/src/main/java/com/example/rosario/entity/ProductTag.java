@@ -9,16 +9,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "product_img")
-public class ProductImg {
-
+@Table(name = "product_tag")
+public class ProductTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productimgId;   // 상품이미지 ID
+    private Long productTagId;   // 상품취향 ID
 
     @Column(nullable = false)
     private Long productId;      // 상품 ID (FK)
 
     @Column(nullable = false)
-    private String img;          // 이미지 URL 또는 파일 경로
+    private Long chipTagId;      // 취향 ID (FK)
+
 }
