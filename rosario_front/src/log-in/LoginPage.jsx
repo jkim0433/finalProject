@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
-  const history = useHistory();
+  const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +22,7 @@ function LoginPage() {
     try {
       await axios.post("/perform_login", credentials);
       // 로그인 성공 후 홈 페이지로 이동
-      history.push("/");
+      navigate("/");
     } catch (error) {
       console.error("로그인 오류:", error);
     }

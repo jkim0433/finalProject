@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {
   const [customer, setCustomer] = useState({
@@ -11,7 +11,8 @@ function RegisterPage() {
     customerEmlAdr: "",
     customerPassword: "",
   });
-  const history = useHistory();
+  
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +27,7 @@ function RegisterPage() {
     try {
       await axios.post("/api/customers/register", customer);
       // 회원 가입 성공 후 로그인 페이지로 이동
-      history.push("/login");
+      navigate("/login");
     } catch (error) {
       console.error("회원 가입 오류:", error);
     }
