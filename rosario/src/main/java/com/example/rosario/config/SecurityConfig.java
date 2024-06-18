@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -98,7 +100,8 @@ private final CustomUserDetailsService customUserDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+        http .cors()
+                .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/seller/**").hasRole("SELLER")
                         .requestMatchers("/user/**").hasRole("USER")
@@ -142,5 +145,19 @@ private final CustomUserDetailsService customUserDetailsService;
                 "/index.html",
                 "/favicon.*"
         );
+    }
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:5173") // 허용할 출처
+                        .allowedMethods("GET", "POST", "PUT", "DELETE") // 허용할 메서드
+                        .allowedHeaders("*") // 허용할 헤더
+                        .allowCredentials(true) // 인증정보 포함 여부
+                        .maxAge(3600); // 캐시 유지 시간
+            }
+        };
     }
 }
