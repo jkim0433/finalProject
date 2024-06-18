@@ -12,7 +12,7 @@ public class LoginController {
     public String loginPage() {
         log.info("로그인 페이지");
         return "loginPage"; // loginPage.html 파일을 반환
-    }
+    }//p
 
     @PostMapping("/perform_login")
     public String performLogin(@RequestParam String username, @RequestParam String password) {
