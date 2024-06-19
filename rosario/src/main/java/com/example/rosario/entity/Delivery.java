@@ -12,7 +12,6 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "delivery")
-
 public class Delivery {
 
         @Id
@@ -20,17 +19,16 @@ public class Delivery {
         private Long deliveryId;       // 배송 ID
 
         @ManyToOne
-        @JoinColumn(name = "orders_id", nullable = false)
+        @JoinColumn(name = "seller_id", nullable = false)
         private Seller seller;         // 사업주 ID (FK)
 
         @ManyToOne
         @JoinColumn(name = "orders_id", nullable = false)
-        private Orders orders;
+        private Orders orders;         // 주문 ID (FK)
 
         @ManyToOne
         @JoinColumn(name = "customer_id", nullable = false)
-        private Customer customer;
-
+        private Customer customer;     // 고객 ID (FK)
 
         @Column(nullable = false)
         private Long deliveryCount;    // 배송 횟수

@@ -22,11 +22,11 @@ public class Orders {
     private Date ordersDate;
 
     @ManyToOne
-    @JoinColumn(name = "customerId")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "productId")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @OneToMany(mappedBy = "orders")

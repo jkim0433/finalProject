@@ -16,8 +16,9 @@ public class ProductImg {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productImgId;   // 상품이미지 ID
 
-    @Column(nullable = false, name = "product_id")
-    private Product product;      // 상품 ID (FK)
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;         // 상품 ID (FK)
 
     @Column(nullable = false)
     private String img;          // 이미지 URL 또는 파일 경로
