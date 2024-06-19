@@ -14,7 +14,7 @@ public class ProductImg {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productimgId;   // 상품이미지 ID
+    private Long productImgId;   // 상품이미지 ID
 
     @Column(nullable = false, name = "product_id")
     private Product product;      // 상품 ID (FK)

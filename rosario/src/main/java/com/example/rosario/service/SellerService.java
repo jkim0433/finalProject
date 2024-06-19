@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SellerService {
 
@@ -30,6 +32,11 @@ public class SellerService {
         seller.setSellerEmailAdr(sellerDTO.getSellerEmailAdr());
         seller.setSellerPassword(passwordEncoder.encode(sellerDTO.getSellerPassword()));
         return sellerRepository.save(seller);
+    }
+
+    public List<Seller> getAllSellers() {
+        //판매자(가게) 목록 전체 조회
+        return sellerRepository.findAll();
     }
 }
 
