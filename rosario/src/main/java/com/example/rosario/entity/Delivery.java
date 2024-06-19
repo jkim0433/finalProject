@@ -19,14 +19,18 @@ public class Delivery {
         @GeneratedValue(strategy = GenerationType.IDENTITY)  // 엔티티의 기본키 값을 자동으로 생성
         private Long deliveryId;       // 배송 ID
 
-        @Column(nullable = false)      // 열이 null값을 허용하지 않음
-        private Long ordersId;         // 주문 ID (FK)
+        @ManyToOne
+        @JoinColumn(name = "orders_id", nullable = false)
+        private Seller seller;         // 사업주 ID (FK)
 
-        @Column(nullable = false)
-        private Long sellerId;         // 사업주 ID (FK)
+        @ManyToOne
+        @JoinColumn(name = "orders_id", nullable = false)
+        private Orders orders;
 
-        @Column(nullable = false)
-        private Long customerId;       // 고객 ID (FK)
+        @ManyToOne
+        @JoinColumn(name = "customer_id", nullable = false)
+        private Customer customer;
+
 
         @Column(nullable = false)
         private Long deliveryCount;    // 배송 횟수

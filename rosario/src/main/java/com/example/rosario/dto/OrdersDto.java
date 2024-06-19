@@ -1,13 +1,11 @@
 package com.example.rosario.dto;
 
-import com.example.rosario.entity.Customer;
-import com.example.rosario.entity.Product;
-import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
-
+import lombok.Getter;
+import lombok.Setter;
 import java.util.Date;
 
-
+@Getter
+@Setter
 public class OrdersDto {
     private Long ordersId;
     private String orders;

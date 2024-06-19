@@ -13,12 +13,14 @@ import java.util.Date;
 @Entity
 @Table(name = "subscribe")
 public class Subscription {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subscribeId;       // 구독 ID
 
-    @Column(nullable = false)
-    private Long ordersId;          // 주문 ID (FK)
+    @ManyToOne
+    @JoinColumn(name = "orders_id", nullable = false)
+    private Orders orders;      // 주문 ID (FK)
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
@@ -27,11 +29,13 @@ public class Subscription {
     @Column(nullable = false)
     private Long totalNum;          // 주문 총 이용 횟수
 
-    @Column(nullable = false)
-    private Long customerId;        // 고객 ID (FK)
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;      // 고객 ID (FK)
 
-    @Column(nullable = false)
-    private Long sellerId;          // 판매자 ID (FK)
+    @ManyToOne
+    @JoinColumn(name = "seller_id", nullable = false)
+    private Seller seller;          // 판매자 ID (FK)
 
     @Column(nullable = false)
     private Long deliveryCount;     // 배송 횟수
@@ -39,5 +43,5 @@ public class Subscription {
     @Column(nullable = false)
     private Long remainCount;       // 남은 구독 횟수
 
+    // constructors, getters, setters 생략
 }
-

@@ -1,9 +1,11 @@
 package com.example.rosario.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "payment_seller")
+@Data
 public class PaymentSeller {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

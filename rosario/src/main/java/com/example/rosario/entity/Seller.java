@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -40,5 +41,9 @@ public class Seller {
 
     private String sellerPassword;  // Add a password field
 
+    @OneToMany(mappedBy = "seller")
+    private Set<ProductSeller> productSellers;
 
+    @OneToMany(mappedBy = "seller")
+    private Set<PaymentSeller> paymentSellers;
 }

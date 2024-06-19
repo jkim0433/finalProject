@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 
 @Entity
 @Table(name = "chipTag")
@@ -14,6 +16,12 @@ public class ChipTag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chipTagId;
 
+    @Column(nullable = false)
     private String label;
 
+    @OneToMany(mappedBy = "chipTag")
+    private Set<CustomerTag> customerTags;
+
+    @OneToMany(mappedBy = "chipTag")
+    private Set<ProductTag> productTags;
 }

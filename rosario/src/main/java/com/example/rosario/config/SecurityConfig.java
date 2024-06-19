@@ -105,8 +105,10 @@ private final CustomUserDetailsService customUserDetailsService;
         http .cors()
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/seller/**").hasRole("SELLER")
-                        .requestMatchers("/user/**").hasRole("USER")
+//                        .requestMatchers("/seller/**").hasRole("SELLER") 실용
+//                        .requestMatchers("/user/**").hasRole("USER")
+                        .requestMatchers("/rosario/**").permitAll() //개발모드1
+                        .requestMatchers("/api/**").permitAll() //개발모드1
                         .requestMatchers("/api/customers/register").permitAll() // 회원가입 URL 허용
                         .requestMatchers("/api/sellers/register").permitAll() // 회원가입 URL 허용
 
