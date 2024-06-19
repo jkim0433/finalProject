@@ -24,4 +24,9 @@ public class ChipTag {
 
     @OneToMany(mappedBy = "chipTag")
     private Set<ProductTag> productTags;
+    public ChipTag() {}
+    public ChipTag(Long chipTagId) {
+        this.chipTagId = chipTagId;
+    }
+
 }
