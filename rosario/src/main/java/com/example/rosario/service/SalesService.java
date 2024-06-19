@@ -15,15 +15,15 @@ public class SalesService {
 
     // 월별 매출 조회
     public Long getMonthlySales(int year, int month){
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.set(year,month - 1,1);
-//        Date startDate = calendar.getTime();
-//
-//        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-//        Date endDate = calendar.getTime();
-//
-//        return orderRepository.getMonthlySales(startDate,endDate);
-        return ordersRepository.getMonthlySales(year, month);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year,month - 1,1);
+        Date startDate = calendar.getTime();
+
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        Date endDate = calendar.getTime();
+
+        return ordersRepository.getMonthlySales(startDate,endDate);
+//        return ordersRepository.getMonthlySales(year, month);
     }
     // 분기별 매출 조회 메서드
     public Long getQuarterlySales(int year, int quarter){
