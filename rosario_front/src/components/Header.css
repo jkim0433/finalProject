@@ -1,1 +1,12 @@
- 
+#btn_rounded {
+   display: flex;
+   padding: 4px 16px;
+   border-radius: 30px;
+   border: solid 1px #F9F3C4;
+   color: #F9F3C4;
+   font-weight: 100;
+}
+
+#menu {
+   justify-content: center;
+}

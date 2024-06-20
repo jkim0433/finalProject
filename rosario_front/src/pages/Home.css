@@ -1,0 +1,21 @@
+.carousel-container {
+    top: 0;
+}
+
+.thumbs-wrapper, .thumbs {
+    display: none;
+  }
+
+.carousel-status {
+    display: none;
+}
+
+.rosario {
+    font-size: 100px;
+    font-weight: 900;
+    font-stretch: normal;
+    font-style: italic;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #f23030;
+}
