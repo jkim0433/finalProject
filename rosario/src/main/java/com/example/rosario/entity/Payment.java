@@ -14,7 +14,10 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
+
+    @Column(name = "payment_price")  // 이 부분을 확인(도혜추가)
     private Long paymentPrice;
+
     private Date paymentDate;
     private String paymentType;
 
