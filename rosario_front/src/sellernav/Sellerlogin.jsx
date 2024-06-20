@@ -1,4 +1,4 @@
-import styles from "./Sellernav.module.css";
+import styles from "./SellerNav.module.css";
 import { IoLogOutOutline } from "react-icons/io5";
 import classNames from "classnames";
 

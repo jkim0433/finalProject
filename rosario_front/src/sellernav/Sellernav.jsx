@@ -1,4 +1,4 @@
-import styles from "./Sellernav.module.css";
+import styles from "./SellerNav.module.css";
 import classNames from "classnames";
 import { ConfigProvider, Layout, Menu, Switch, Button } from "antd";
 import { useState } from "react";
@@ -12,22 +12,23 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 //사이드메뉴바
 
 const { Header, Sider } = Layout;
 
-const Sellernav = () => {
+const SellerNav = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [theme, setTheme] = useState("dark");
-  const [current, setCurrent] = useState("1");
+  const navigate = useNavigate();
 
   const changeTheme = (value) => {
     setTheme(value ? "dark" : "light");
   };
-  const onClick = (e) => {
+  const handleMenuClick = (e) => {
     console.log("click ", e);
-    setCurrent(e.key);
+    navigate(e.key);
   };
 
   return (
@@ -35,8 +36,8 @@ const Sellernav = () => {
       theme={{
         components: {
           Layout: {
-            bodyBg: "#FFFFFF",
-            headerBg: "#FFFFFF",
+            bodyBg: "#D9D2D0",
+            headerBg: "#D9D2D0",
             siderBg: "#A61717",
           },
           Menu: {
@@ -89,28 +90,33 @@ const Sellernav = () => {
             theme={theme}
             mode="inline"
             className={styles.sellernavbar}
-            onClick={onClick}
+            onClick={handleMenuClick}
           >
-            <Menu.Item key="dashboard" icon={<HomeOutlined />}>
+            <Menu.Item key="/admin/dashboard" icon={<HomeOutlined />}>
               DashBoard
             </Menu.Item>
             <Menu.SubMenu key="edit" icon={<EditOutlined />} title="Edit">
-              <Menu.Item key="catalog">Catalog</Menu.Item>
-              <Menu.Item key="profile">Profile</Menu.Item>
-              <Menu.Item key="product">Product</Menu.Item>
+              <Menu.Item key="/admin/edit/catalog">Catalog</Menu.Item>
+              <Menu.Item key="/admin/edit/profile">Profile</Menu.Item>
+              <Menu.Item key="/admin/edit/product">Product</Menu.Item>
             </Menu.SubMenu>
             <Menu.SubMenu
               key="sales"
               icon={<LineChartOutlined />}
               title="Sales"
             >
-              <Menu.Item key="term">Term</Menu.Item>
-              <Menu.Item key="Type">Type</Menu.Item>
+              <Menu.Item key="/admin/sales/term">Term</Menu.Item>
+              <Menu.Item key="/admin/sales/type">Type</Menu.Item>
             </Menu.SubMenu>
-            <Menu.Item key="orders" icon={<CalendarOutlined />}>
-              Orders
-            </Menu.Item>
-            <Menu.Item key="subscription" icon={<TeamOutlined />}>
+            <Menu.SubMenu
+              key="orders"
+              icon={<CalendarOutlined />}
+              title="Orders"
+            >
+              <Menu.Item key="/admin/orders/suborders">Sub Orders</Menu.Item>
+              <Menu.Item key="/admin/orders/genorders">Gen Orders</Menu.Item>
+            </Menu.SubMenu>
+            <Menu.Item key="/admin/subscription" icon={<TeamOutlined />}>
               Subscription
             </Menu.Item>
           </Menu>
@@ -148,4 +154,4 @@ const Sellernav = () => {
   );
 };
 
-export default Sellernav;
+export default SellerNav;
