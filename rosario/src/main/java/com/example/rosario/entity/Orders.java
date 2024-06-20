@@ -15,10 +15,19 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ordersId;
 
-    private String orders;
+    @Column(name = "order_description")  // 데이터베이스 컬럼명과 일치하도록 수정
+    private String orderDescription;
+
+    @Column(name = "total_num")
     private Long totalNum;
+
+    @Column(name = "orders_ea")
     private Long ordersEA;
+
+    @Column(name = "orders_adr")
     private String ordersAdr;
+
+    @Column(name = "orders_date")
     private Date ordersDate;
 
     @ManyToOne

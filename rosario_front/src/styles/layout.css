@@ -1,0 +1,16 @@
+#header {
+    /* position: fixed; */
+    height: 150px;
+    width: 100%;
+    /* border: 1px solid black; */
+    top: 0;
+    z-index: 9999;
+}
+#main {
+    /* margin-top: 200px; */
+    max-width: 2000px;
+    max-height: 100vh;
+}
+#footer {
+    height: 100px;
+}
