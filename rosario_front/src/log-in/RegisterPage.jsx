@@ -25,9 +25,9 @@ function RegisterPage() {
   const handleRegister = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("/api/customers/register", customer);
+      await axios.post("localhost:8081/api/customers/register", customer);
       // 회원 가입 성공 후 로그인 페이지로 이동
-      navigate("/login");
+      navigate("/loginpage");
     } catch (error) {
       console.error("회원 가입 오류:", error);
     }
