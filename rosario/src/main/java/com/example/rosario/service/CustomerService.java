@@ -29,4 +29,8 @@ public class CustomerService {
 
         return customerRepository.save(customer);
     }
+
+    public boolean isEmailAlreadyRegistered(String email) {
+        return customerRepository.existsByCustomerEmlAdr(email);
+    }
 }

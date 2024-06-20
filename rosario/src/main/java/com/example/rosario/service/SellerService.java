@@ -38,5 +38,8 @@ public class SellerService {
         //판매자(가게) 목록 전체 조회
         return sellerRepository.findAll();
     }
+    public boolean isEmailAlreadyRegistered(String email) {
+        return sellerRepository.existsBySellerEmailAdr(email);
+    }
 }
 

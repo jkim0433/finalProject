@@ -33,5 +33,12 @@ public class SellerController {
         Seller registeredSeller = sellerService.registerSeller(sellerDTO);
         return ResponseEntity.ok(registeredSeller);
     }
+
+    @GetMapping("/check-email")
+    //이메일 중복체크
+    public ResponseEntity<Boolean> checkEmail(@RequestParam("email") String email) {
+        boolean emailExists = sellerService.isEmailAlreadyRegistered(email);
+        return ResponseEntity.ok(emailExists);
+    }
 }
 
