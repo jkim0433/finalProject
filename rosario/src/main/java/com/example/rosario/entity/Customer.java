@@ -27,5 +27,8 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private Set<CustomerTag> customerTags;
-
+    public Customer() {}
+    public Customer(Long customerId) {
+        this.customerId = customerId;
+    }
 }

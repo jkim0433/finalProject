@@ -3,7 +3,7 @@ const fetchWithAuth = async (url, options = {}) => {
   
     // 토큰이 없으면 로그인 페이지로 리디렉션
     if (!token) {
-      window.location.href = "/login";
+      window.location.href = "/loginpage";
       return;
     }
   
@@ -18,10 +18,10 @@ const fetchWithAuth = async (url, options = {}) => {
     // 토큰이 유효하지 않은 경우 로그인 페이지로 리디렉션
     if (response.status === 401) {
       localStorage.removeItem("accessToken");
-      window.location.href = "/login";
+      window.location.href = "/loginpage";
     }
   
     return response;
   };
   
-  export default fetchWithAuth;
+  export default fetchW
