@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './Login.css'
 
 function LoginPage() {
@@ -46,7 +46,7 @@ function LoginPage() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form onSubmit={handleLogin} className="space-y-6">
+        <form onSubmit={handleLogin} className="space-y-6 shadow-sm w-50 p-10 box-content rounded-lg bg-orange-50">
           <div>
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-neutral-900">Email address</label>
             <div className="mt-2">
@@ -83,6 +83,12 @@ function LoginPage() {
 
           <div>
             <button type="submit" className="py-2 bg-red-600 flex w-full justify-center rounded-full px-3 py-1.5 text-bold text-orange-100">Sign in</button>
+          </div>
+
+          <div className='flex justify-center text-xs text-red-600 font-bold space-x-1'>
+            <button>아이디찾기 |</button>
+            <button>비밀번호찾기 |</button>
+            <Link to="/api/customers/register">회원가입</Link>
           </div>
         </form>
       </div>

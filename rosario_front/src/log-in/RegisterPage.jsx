@@ -11,7 +11,7 @@ function RegisterPage() {
     customerEmlAdr: "",
     customerPassword: "",
   });
-  
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -25,7 +25,10 @@ function RegisterPage() {
   const handleRegister = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("localhost:8081/api/customers/register", customer);
+      await axios.post(
+        "http://localhost:8081/api/customers/register",
+        customer
+      );
       // 회원 가입 성공 후 로그인 페이지로 이동
       navigate("/loginpage");
     } catch (error) {
@@ -34,71 +37,125 @@ function RegisterPage() {
   };
 
   return (
-    <div>
-      <h2>회원 가입</h2>
-      <form onSubmit={handleRegister}>
-        <div>
-          <label htmlFor="customerNm">이름:</label>
-          <input
-            type="text"
-            id="customerNm"
-            name="customerNm"
-            value={customer.customerNm}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="customerBirthDt">생년월일:</label>
-          <input
-            type="date"
-            id="customerBirthDt"
-            name="customerBirthDt"
-            value={customer.customerBirthDt}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="customerCno">연락처:</label>
-          <input
-            type="text"
-            id="customerCno"
-            name="customerCno"
-            value={customer.customerCno}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="customerAdr">주소:</label>
-          <input
-            type="text"
-            id="customerAdr"
-            name="customerAdr"
-            value={customer.customerAdr}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="customerEmlAdr">이메일:</label>
-          <input
-            type="email"
-            id="customerEmlAdr"
-            name="customerEmlAdr"
-            value={customer.customerEmlAdr}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="customerPassword">비밀번호:</label>
-          <input
-            type="password"
-            id="customerPassword"
-            name="customerPassword"
-            value={customer.customerPassword}
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit">회원 가입</button>
-      </form>
+    <div className="h-screen items-center flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-lg">
+        {/* <h2>회원 가입</h2> */}
+        <form
+          onSubmit={handleRegister}
+          className="space-y-6 shadow-sm w-50 p-10 box-content rounded-lg bg-orange-50"
+        >
+          <div>
+            <label
+              htmlFor="customerNm"
+              className="mt-2 block text-sm font-medium leading-6 text-neutral-900"
+            >
+              이름:
+            </label>
+            <input
+              type="text"
+              id="customerNm"
+              name="customerNm"
+              value={customer.customerNm}
+              onChange={handleChange}
+              className="border block w-full rounded-full border-0 py-1.5 px-4 text-neutral-900 placeholder:text-gray-400 -indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="customerEmlAdr"
+              className="block text-sm font-medium leading-6 text-neutral-900"
+            >
+              이메일:
+            </label>
+            <input
+              type="email"
+              id="customerEmlAdr"
+              name="customerEmlAdr"
+              value={customer.customerEmlAdr}
+              onChange={handleChange}
+              className="border block w-full rounded-full border-0 py-1.5 px-4 text-neutral-900 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+            />
+            <span className="text-xs font-semibold">
+              <button
+                // type="submit"
+                className="mt-2 w-full flex rounded-lg text-orange-600 justify-end"
+              >
+                중복확인
+              </button>
+            </span>
+          </div>
+          <div className="items-center justify-between">
+            <label
+              htmlFor="customerBirthDt"
+              className="mt-2 block text-sm font-medium leading-6 text-neutral-900"
+            >
+              생년월일:
+            </label>
+            <input
+              type="date"
+              id="customerBirthDt"
+              name="customerBirthDt"
+              value={customer.customerBirthDt}
+              onChange={handleChange}
+              className="border block w-full rounded-full border-0 py-1.5 px-4 text-neutral-900 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="customerCno"
+              className="mt-2 block text-sm font-medium leading-6 text-neutral-900"
+            >
+              연락처:
+            </label>
+            <input
+              type="text"
+              id="customerCno"
+              name="customerCno"
+              value={customer.customerCno}
+              onChange={handleChange}
+              className="border block w-full rounded-full border-0 py-1.5 px-4 text-neutral-900 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="customerAdr"
+              className="mt-2 block text-sm font-medium leading-6 text-neutral-900"
+            >
+              주소:
+            </label>
+            <input
+              type="text"
+              id="customerAdr"
+              name="customerAdr"
+              value={customer.customerAdr}
+              onChange={handleChange}
+              className="border block w-full rounded-full border-0 py-1.5 px-4 text-neutral-900 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="customerPassword"
+              className="mt-2 block text-sm font-medium leading-6 text-neutral-900"
+            >
+              비밀번호:
+            </label>
+            <input
+              type="password"
+              id="customerPassword"
+              name="customerPassword"
+              value={customer.customerPassword}
+              onChange={handleChange}
+              className="border block w-full rounded-full border-0 py-1.5 px-4 text-neutral-900 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+            />
+          </div>
+          <button
+            type="submit"
+            className="py-2 bg-red-600 flex w-full justify-center rounded-full px-3 py-1.5 text-bold text-orange-100 font-semibold"
+          >
+            회원가입
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

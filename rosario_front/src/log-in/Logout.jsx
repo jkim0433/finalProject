@@ -19,7 +19,7 @@ const Logout = ({ className, onLogout }) => {
         if (response.ok) {
           localStorage.removeItem("accessToken");
           onLogout(); // 로그아웃 상태로 전환
-          navigate("/login");
+          navigate("/loginpage");
         } else {
           console.error("Failed to logout");
         }
