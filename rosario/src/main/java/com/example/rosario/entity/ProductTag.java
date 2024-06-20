@@ -15,10 +15,12 @@ public class ProductTag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productTagId;   // 상품취향 ID
 
-    @Column(nullable = false)
-    private Long productId;      // 상품 ID (FK)
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;         // 상품 ID (FK)
 
-    @Column(nullable = false)
-    private Long chipTagId;      // 취향 ID (FK)
+    @ManyToOne
+    @JoinColumn(name = "chipTagId")
+    private ChipTag chipTag;
 
 }

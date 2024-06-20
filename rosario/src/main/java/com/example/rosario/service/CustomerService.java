@@ -1,4 +1,4 @@
-package com.example.rosario.sevice;
+package com.example.rosario.service;
 
 import com.example.rosario.dto.CustomerDto;
 import com.example.rosario.entity.Customer;
@@ -28,5 +28,9 @@ public class CustomerService {
         customer.setCustomerPassword(passwordEncoder.encode(customerDto.getCustomerPassword()));
 
         return customerRepository.save(customer);
+    }
+
+    public boolean isEmailAlreadyRegistered(String email) {
+        return customerRepository.existsByCustomerEmlAdr(email);
     }
 }

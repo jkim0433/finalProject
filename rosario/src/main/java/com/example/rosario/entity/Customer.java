@@ -1,14 +1,14 @@
 package com.example.rosario.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
+import lombok.Data;
+
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
+@Data
 @Table(name = "customer")
 public class Customer {
 
@@ -22,59 +22,13 @@ public class Customer {
     private String customerEmlAdr;
     private String customerPassword;
 
-    public Long getCustomerId() {
-        return customerId;
-    }
+    @OneToMany(mappedBy = "customer")
+    private Set<OrderCusPay> orderCusPays;
 
-    public void setCustomerId(Long customerId) {
+    @OneToMany(mappedBy = "customer")
+    private Set<CustomerTag> customerTags;
+    public Customer() {}
+    public Customer(Long customerId) {
         this.customerId = customerId;
-    }
-
-    public String getCustomerNm() {
-        return customerNm;
-    }
-
-    public void setCustomerNm(String customerNm) {
-        this.customerNm = customerNm;
-    }
-
-    public Date getCustomerBirthDt() {
-        return customerBirthDt;
-    }
-
-    public void setCustomerBirthDt(Date customerBirthDt) {
-        this.customerBirthDt = customerBirthDt;
-    }
-
-    public Long getCustomerCno() {
-        return customerCno;
-    }
-
-    public void setCustomerCno(Long customerCno) {
-        this.customerCno = customerCno;
-    }
-
-    public String getCustomerAdr() {
-        return customerAdr;
-    }
-
-    public void setCustomerAdr(String customerAdr) {
-        this.customerAdr = customerAdr;
-    }
-
-    public String getCustomerEmlAdr() {
-        return customerEmlAdr;
-    }
-
-    public void setCustomerEmlAdr(String customerEmlAdr) {
-        this.customerEmlAdr = customerEmlAdr;
-    }
-
-    public String getCustomerPassword() {
-        return customerPassword;
-    }
-
-    public void setCustomerPassword(String customerPassword) {
-        this.customerPassword = customerPassword;
     }
 }
