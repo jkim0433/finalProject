@@ -4,6 +4,7 @@ import LoginPage from "./log-in/LoginPage";
 import RegisterPage from "./log-in/RegisterPage";
 import Header from "./components/Header";
 import Home from "./pages/Home";
+import Sellernav from "./sellernav/Sellernav";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           {/* Route without Header */}
           <Route path="/loginpage" element={<LoginPage />} />
           <Route path="/api/customers/register" element={<RegisterPage />} />
+          <Route path="/admin/sellernav" element={<Sellernav />} />
 
           {/* Route with Header */}
           <Route
