@@ -12,6 +12,7 @@ function RegisterPage() {
     customerPassword: "",
   });
 
+  const [emailCheckMessage, setEmailCheckMessage] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -22,15 +23,37 @@ function RegisterPage() {
     }));
   };
 
+  const handleEmailCheck = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8081/api/customers/check-email?email=${customer.customerEmlAdr}`
+      );
+      if (response.data === true) {
+        setEmailCheckMessage("이미 사용 중인 이메일입니다.");
+      } else {
+        setEmailCheckMessage("사용 가능한 이메일입니다.");
+      }
+    } catch (error) {
+      console.error("이메일 중복 확인 오류:", error);
+    }
+  };
+
   const handleRegister = async (event) => {
     event.preventDefault();
     try {
-      await axios.post(
-        "http://localhost:8081/api/customers/register",
-        customer
+      const response = await axios.get(
+        `http://localhost:8081/api/customers/check-email?email=${customer.customerEmlAdr}`
       );
-      // 회원 가입 성공 후 로그인 페이지로 이동
-      navigate("/loginpage");
+      if (response.data === true) {
+        setEmailCheckMessage("이미 사용 중인 이메일입니다. 다른 이메일을 입력해주세요.");
+      } else {
+        await axios.post(
+          "http://localhost:8081/api/customers/register",
+          customer
+        );
+        // 회원 가입 성공 후 로그인 페이지로 이동
+        navigate("/loginpage");
+      }
     } catch (error) {
       console.error("회원 가입 오류:", error);
     }
@@ -39,7 +62,6 @@ function RegisterPage() {
   return (
     <div className="h-screen items-center flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-lg">
-        {/* <h2>회원 가입</h2> */}
         <form
           onSubmit={handleRegister}
           className="space-y-6 shadow-sm w-50 p-10 box-content rounded-lg bg-orange-50"
@@ -77,11 +99,13 @@ function RegisterPage() {
             />
             <span className="text-xs font-semibold">
               <button
-                // type="submit"
+                type="button"
+                onClick={handleEmailCheck}
                 className="mt-2 w-full flex rounded-lg text-orange-600 justify-end"
               >
                 중복확인
               </button>
+              <p className="mt-1 text-sm text-gray-500">{emailCheckMessage}</p>
             </span>
           </div>
           <div className="items-center justify-between">

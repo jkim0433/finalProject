@@ -4,7 +4,6 @@ import LoginPage from "./log-in/LoginPage";
 import RegisterPage from "./log-in/RegisterPage";
 import Header from "./components/Header";
 import Home from "./pages/Home";
-import SellerNav from "./sellernav/SellerNav";
 import Dashboard from "./sellernav/Dashboard";
 import SubOrders from "./sellerorders/SellerSubOrders";
 import GenOrders from "./sellerorders/SellerGenOrders";
@@ -14,6 +13,7 @@ import Catalog from "./selleredit/Catalog";
 import Profile from "./selleredit/Profile";
 import Product from "./selleredit/Product";
 import Subscription from "./sellersubscription/Subscription";
+import SellerNav from "./sellernav/SellerNav";
 
 function App() {
   return (
