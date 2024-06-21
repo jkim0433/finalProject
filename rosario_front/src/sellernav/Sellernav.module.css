@@ -1,0 +1,171 @@
+*{
+    margin : 0;
+    padding : 0;
+    border : none;
+    outline : none;
+    list-style : none;
+    box-sizing : border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+.sidebar{
+    color : #fff;
+}
+
+/*----로고----*/
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color : #fff;
+    height: 50px;
+    margin-top: 8px;
+}
+
+.logoname{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color : #fff;
+    font-weight: bold;
+    font-style : italic;
+    font-size : 25px;
+    transition : color 0.3s;
+    transition : display 0.3s;
+}
+
+.logonameCollapsed {
+    display: none; /* 사이드바가 접힌 상태에서는 로고이름 숨김 */
+}
+  
+.logonameExpanded {
+    display: block; /* 사이드바가 펼쳐진 상태에서는 로고이름 표시 */
+}
+
+.logonameDark{
+    color:#FFFFFF;
+}
+
+.logonameLight{
+    color:#A61717;
+}
+
+.logoimage{
+    width : 40px;
+    height : 40px;
+    display : flex;
+    align-items: center;
+    justify-content: cneter;
+    font-size : 25px;
+    border-radius: 50%;
+}
+
+.logoimageCollapsed {
+    display: blcok; /* 사이드바가 접힌 상태에서는 로고이미지 보임 */
+}
+  
+.logoimageExpanded {
+    display: none; /* 사이드바가 펼쳐진 상태에서는 로고이미지 안보임 */
+}
+
+
+/*----메뉴----*/
+.sellernavbar{
+    height : 83vh;
+    display : flex;
+    flex-direction : column;
+    gap : 15px;
+    font-size: 1rem;
+    position : relative;
+}
+
+
+/*----dark/light 모드----*/
+.switch{
+    transition: margin-left 0.3s ease; /* 여백 변화를 부드럽게 하기 위해 transition 추가 */
+}
+
+.switchCollapsed {
+    margin-left: 8px; /* 사이드바가 접힌 상태의 여백 */
+}
+  
+.switchExpanded {
+    margin-left: 5px; /* 사이드바가 펼쳐진 상태의 여백 */
+}
+
+.switchbtn{
+    flex-direction : column;
+    position: relative;
+    bottom : 5px;
+    display : flex;
+    align-items : center;
+    justify-content: center;
+    font-size : 16px;
+}
+
+
+/*----seller 정보----*/
+.profiletotal{
+    display: flex;
+    align-items: center;
+    padding : 5px;
+    justify-content: space-between;
+}
+
+.profilebigimg{
+    width : 35px;
+    height : 35px;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25%;
+    background-color: #A61717;
+    transition: margin-left 0.3s ease;
+}
+
+.profileimg{
+    width : 30px;
+    height : 30px;
+    border-radius: 20%;    
+}
+
+.profilebigcontent{
+    align-items: center;
+    justify-content: center;
+}
+
+.profilecontent{ 
+    align-items: center;
+    font-weight: bold;
+    color : #ffffff;
+    font-size: 14px;
+}
+.profilemail{
+    color : #fff;
+    font-size: 12px;
+}
+
+.profileicon{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    margin-right : 2.5px;
+    font-size: 20px;
+    cursor : pointer;
+}
+
+.profilebigimgCollapsed{
+   margin-left: 17px;
+}
+
+
+.profilebigcontentCollapsed, .profilelogoutCollapsed{
+    display : none;
+}
+.profilebigcontentExpanded, .profilelogoutExpanded{
+    display : grid;
+}
+
+.profilecontentLight, .profilemailLight, .profilelogoutLight{
+    color : #A61717;
+}

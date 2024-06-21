@@ -3,7 +3,7 @@ import './Header.css';
 import { headerMenus, loginMenus } from '../data/menu';
 // import MenuIcon from '../svg/MenuIcon';
 import { Link } from 'react-router-dom';
-import { Bars3Icon, } from '@heroicons/react/24/outline'
+import { Bars3Icon } from '@heroicons/react/24/outline';
 
 const Header = () => {
     return (
@@ -25,7 +25,7 @@ const Header = () => {
           <div id='menu' className='lg:justify-center'>
             <ul className='flex items-center justify-center lg:justify-between hidden lg:flex lg:gap-x-12'>
                 {headerMenus.map((menu, key) => ( 
-                  <li key={key} className='text-red-600 font-semibold'>
+                  <li key={key} className='text-red-600 font-semibold border'>
                     <Link to={menu.link}> 
                       {menu.title}
                     </Link>
