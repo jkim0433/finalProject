@@ -13,6 +13,7 @@ import Catalog from "./selleredit/Catalog";
 import Profile from "./selleredit/Profile";
 import Product from "./selleredit/Product";
 import Subscription from "./sellersubscription/Subscription";
+import MyPage from "./pages/MyPage";
 import SellerNav from "./sellernav/SellerNav";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                 <main id="main">
                   <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/api/customers/{customerId}" element={<MyPage />} />
                   </Routes>
                 </main>
                 <footer id="footer">{/* Footer content */}</footer>
