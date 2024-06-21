@@ -20,7 +20,7 @@ const fetchWithAuth = async (url, options = {}) => {
     localStorage.removeItem("accessToken");
     window.location.href = "/loginpage";
   }
-  console.log('test');
+
   return response;
 };
 
