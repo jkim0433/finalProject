@@ -25,6 +25,8 @@ import Catalog from "../selleredit/Catalog";
 import Profile from "../selleredit/Profile";
 import Product from "../selleredit/Product";
 
+import sellermenu from "../data/sellermenu";
+
 //사이드메뉴바
 
 const { Header, Sider, Content } = Layout;
@@ -41,46 +43,23 @@ const Sellernav = () => {
     navigate(key);
   };
 
-  const menuItems = [
-    {
-      key: "/admin/dashboard",
-      icon: <HomeOutlined />,
-      label: "DashBoard",
-    },
-    {
-      key: "/admin/edit",
-      icon: <EditOutlined />,
-      label: "Edit",
-      children: [
-        { key: "/admin/edit/catalog", label: "Catalog" },
-        { key: "/admin/edit/profile", label: "Profile" },
-        { key: "/admin/edit/product", label: "Product" },
-      ],
-    },
-    {
-      key: "/admin/sales",
-      icon: <LineChartOutlined />,
-      label: "Sales",
-      children: [
-        { key: "/admin/sales/term", label: "Term" },
-        { key: "/admin/sales/type", label: "Type" },
-      ],
-    },
-    {
-      key: "/admin/orders",
-      icon: <CalendarOutlined />,
-      label: "Orders",
-      children: [
-        { key: "/admin/orders/suborders", label: "Sub Orders" },
-        { key: "/admin/orders/genorders", label: "Gen Orders" },
-      ],
-    },
-    {
-      key: "/admin/subscription",
-      icon: <TeamOutlined />,
-      label: "Subscription",
-    },
-  ];
+  // 아이콘 매핑 함수
+  const iconMap = {
+    HomeOutlined: <HomeOutlined />,
+    EditOutlined: <EditOutlined />,
+    LineChartOutlined: <LineChartOutlined />,
+    CalendarOutlined: <CalendarOutlined />,
+    TeamOutlined: <TeamOutlined />,
+  };
+
+  const sellermenuitem = sellermenu.map((item) => ({
+    ...item,
+    icon: iconMap[item.icon],
+    children: item.children?.map((child) => ({
+      ...child,
+      icon: iconMap[child.icon],
+    })),
+  }));
 
   return (
     <ConfigProvider
@@ -142,7 +121,7 @@ const Sellernav = () => {
             mode="inline"
             className={styles.sellernavbar}
             onClick={handleMenuClick}
-            items={menuItems}
+            items={sellermenuitem}
           />
 
           <div
@@ -174,7 +153,7 @@ const Sellernav = () => {
           </Header>
           <Content
             style={{
-              margin: "24px 40px 0",
+              margin: "0px 40px",
             }}
           >
             <Routes>

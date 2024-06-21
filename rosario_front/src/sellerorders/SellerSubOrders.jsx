@@ -1,5 +1,11 @@
+import SellerCalendar from "./SellerCalendar";
+
 const SellerSubOrders = () => {
-  return <></>;
+  return (
+    <>
+      <SellerCalendar />
+    </>
+  );
 };
 
 export default SellerSubOrders;
