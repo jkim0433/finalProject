@@ -1,8 +1,8 @@
-import styles from "./SellerNav.module.css";
+import React from "react";
+import styles from "./Sellernav.module.css";
 import classNames from "classnames";
 import { ConfigProvider, Layout, Menu, Switch, Button } from "antd";
 import { useState } from "react";
-import Sellerlogin from "./Sellerlogin";
 import {
   HomeOutlined,
   EditOutlined,
@@ -12,13 +12,24 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Routes, Route } from "react-router-dom";
+
+import Sellerlogin from "./Sellerlogin";
+import Dashboard from "./Dashboard";
+import Subscription from "../sellersubscription/Subscription";
+import SellerSubOrders from "../sellerorders/SellerSubOrders";
+import SellerGenOrders from "../sellerorders/SellerGenOrders";
+import Term from "../sellersales/Term";
+import Type from "../sellersales/Type";
+import Catalog from "../selleredit/Catalog";
+import Profile from "../selleredit/Profile";
+import Product from "../selleredit/Product";
 
 //사이드메뉴바
 
-const { Header, Sider } = Layout;
+const { Header, Sider, Content } = Layout;
 
-const SellerNav = () => {
+const Sellernav = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [theme, setTheme] = useState("dark");
   const navigate = useNavigate();
@@ -26,10 +37,50 @@ const SellerNav = () => {
   const changeTheme = (value) => {
     setTheme(value ? "dark" : "light");
   };
-  const handleMenuClick = (e) => {
-    console.log("click ", e);
-    navigate(e.key);
+  const handleMenuClick = ({ key }) => {
+    navigate(key);
   };
+
+  const menuItems = [
+    {
+      key: "/admin/dashboard",
+      icon: <HomeOutlined />,
+      label: "DashBoard",
+    },
+    {
+      key: "/admin/edit",
+      icon: <EditOutlined />,
+      label: "Edit",
+      children: [
+        { key: "/admin/edit/catalog", label: "Catalog" },
+        { key: "/admin/edit/profile", label: "Profile" },
+        { key: "/admin/edit/product", label: "Product" },
+      ],
+    },
+    {
+      key: "/admin/sales",
+      icon: <LineChartOutlined />,
+      label: "Sales",
+      children: [
+        { key: "/admin/sales/term", label: "Term" },
+        { key: "/admin/sales/type", label: "Type" },
+      ],
+    },
+    {
+      key: "/admin/orders",
+      icon: <CalendarOutlined />,
+      label: "Orders",
+      children: [
+        { key: "/admin/orders/suborders", label: "Sub Orders" },
+        { key: "/admin/orders/genorders", label: "Gen Orders" },
+      ],
+    },
+    {
+      key: "/admin/subscription",
+      icon: <TeamOutlined />,
+      label: "Subscription",
+    },
+  ];
 
   return (
     <ConfigProvider
@@ -57,7 +108,7 @@ const SellerNav = () => {
         },
       }}
     >
-      <Layout>
+      <Layout style={{ minHeight: "100vh" }}>
         <Sider
           collapsed={collapsed}
           collapsible
@@ -91,35 +142,8 @@ const SellerNav = () => {
             mode="inline"
             className={styles.sellernavbar}
             onClick={handleMenuClick}
-          >
-            <Menu.Item key="/admin/dashboard" icon={<HomeOutlined />}>
-              DashBoard
-            </Menu.Item>
-            <Menu.SubMenu key="edit" icon={<EditOutlined />} title="Edit">
-              <Menu.Item key="/admin/edit/catalog">Catalog</Menu.Item>
-              <Menu.Item key="/admin/edit/profile">Profile</Menu.Item>
-              <Menu.Item key="/admin/edit/product">Product</Menu.Item>
-            </Menu.SubMenu>
-            <Menu.SubMenu
-              key="sales"
-              icon={<LineChartOutlined />}
-              title="Sales"
-            >
-              <Menu.Item key="/admin/sales/term">Term</Menu.Item>
-              <Menu.Item key="/admin/sales/type">Type</Menu.Item>
-            </Menu.SubMenu>
-            <Menu.SubMenu
-              key="orders"
-              icon={<CalendarOutlined />}
-              title="Orders"
-            >
-              <Menu.Item key="/admin/orders/suborders">Sub Orders</Menu.Item>
-              <Menu.Item key="/admin/orders/genorders">Gen Orders</Menu.Item>
-            </Menu.SubMenu>
-            <Menu.Item key="/admin/subscription" icon={<TeamOutlined />}>
-              Subscription
-            </Menu.Item>
-          </Menu>
+            items={menuItems}
+          />
 
           <div
             className={classNames(styles.switch, {
@@ -148,10 +172,27 @@ const SellerNav = () => {
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             />
           </Header>
+          <Content
+            style={{
+              margin: "24px 40px 0",
+            }}
+          >
+            <Routes>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="edit/catalog" element={<Catalog />} />
+              <Route path="edit/profile" element={<Profile />} />
+              <Route path="edit/product" element={<Product />} />
+              <Route path="sales/term" element={<Term />} />
+              <Route path="sales/type" element={<Type />} />
+              <Route path="orders/suborders" element={<SellerSubOrders />} />
+              <Route path="orders/genorders" element={<SellerGenOrders />} />
+              <Route path="subscription" element={<Subscription />} />
+            </Routes>
+          </Content>
         </Layout>
       </Layout>
     </ConfigProvider>
   );
 };
 
-export default SellerNav;
+export default Sellernav;
