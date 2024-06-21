@@ -1,13 +1,18 @@
 package com.example.rosario.service;
 
+import com.example.rosario.dto.ProductDetailDto;
 import com.example.rosario.entity.Product;
+import com.example.rosario.entity.ProductImg;
 import com.example.rosario.entity.ProductSeller;
+import com.example.rosario.repository.ProductImgRepository;
 import com.example.rosario.repository.ProductRepository;
 import com.example.rosario.repository.ProductSellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +23,8 @@ public class ProductService {
 
     @Autowired
     private ProductSellerRepository productSellerRepository;
+    @Autowired
+    private ProductImgRepository productImgRepository;
 
 
     public List<Product> getProductsBySellerId(Long sellerId) {
@@ -29,5 +36,27 @@ public class ProductService {
                 .collect(Collectors.toList());
         // 상품 ID 목록으로 상품 조회하기
         return productRepository.findByProductIdIn(productIds);
+    }
+
+
+    public ProductDetailDto getProductDetail(Long productId) {
+        Optional<Product> productOpt = productRepository.findById(productId);
+        if (productOpt.isPresent()) {
+            Product product = productOpt.get();
+
+            Set<ProductImg> productImages = (Set<ProductImg>) productImgRepository.findByProductProductId(productId);
+
+            ProductDetailDto productDetailDto = new ProductDetailDto();
+            productDetailDto.setProductId(product.getProductId());
+            productDetailDto.setProductNm(product.getProductNm());
+            productDetailDto.setProductPrice(product.getProductPrice());
+            productDetailDto.setProductStock(product.getProductStock());
+            productDetailDto.setProductSize(product.getProductSize());
+            productDetailDto.setProductImages(productImages);
+
+            return productDetailDto;
+        } else {
+            throw new RuntimeException("Product not found with id: " + productId);
+        }
     }
 }

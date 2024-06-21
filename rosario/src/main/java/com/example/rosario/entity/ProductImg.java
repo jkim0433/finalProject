@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "product_img")
@@ -21,5 +20,16 @@ public class ProductImg {
     private Product product;         // 상품 ID (FK)
 
     @Column(nullable = false)
-    private String img;          // 이미지 URL 또는 파일 경로
+    private String prodFilename;       //  파일 이름
+
+    @Column(nullable = false)
+    private String prodFilePath;         //  파일 경로
+
+    public ProductImg() {}
+
+    public ProductImg(Product product, String prodFilename, String prodFilePath) {
+        this.product = product;
+        this.prodFilename = prodFilename;
+        this.prodFilePath = prodFilePath;
+    }
 }

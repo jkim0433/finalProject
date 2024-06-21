@@ -1,5 +1,6 @@
 package com.example.rosario.controller;
 
+import com.example.rosario.dto.ProductDetailDto;
 import com.example.rosario.entity.Product;
 import com.example.rosario.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,12 @@ public class ProductController {
     public ResponseEntity<List<Product>> getProductsBySellerId(@PathVariable("sellerId") String sellerId) {
         List<Product> products = productService.getProductsBySellerId(Long.parseLong(sellerId));
         return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<ProductDetailDto> getProductDetail(@PathVariable("productId") String productId) {
+        ProductDetailDto productDetailDto = productService.getProductDetail(Long.parseLong(productId));
+        return ResponseEntity.ok(productDetailDto);
     }
 
 }

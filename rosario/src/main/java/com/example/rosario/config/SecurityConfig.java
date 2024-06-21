@@ -109,6 +109,7 @@ private final CustomUserDetailsService customUserDetailsService;
 //                        .requestMatchers("/user/**").hasRole("USER")
                         .requestMatchers("/rosario/**").permitAll() //개발모드1
                         .requestMatchers("/api/**").permitAll() //개발모드1
+                                .requestMatchers("/uploads/**").permitAll() //개발모드2
                         .requestMatchers("/api/customers/register").permitAll() // 회원가입 URL 허용
                         .requestMatchers("/api/sellers/register").permitAll() // 회원가입 URL 허용
 
