@@ -4,16 +4,17 @@ import LoginPage from "./log-in/LoginPage";
 import RegisterPage from "./log-in/RegisterPage";
 import Header from "./components/Header";
 import Home from "./pages/Home";
-import Dashboard from "./sellernav/Dashboard";
-import SubOrders from "./sellerorders/SellerSubOrders";
-import GenOrders from "./sellerorders/SellerGenOrders";
-import Term from "./sellersales/Term";
-import Type from "./sellersales/Type";
-import Catalog from "./selleredit/Catalog";
-import Profile from "./selleredit/Profile";
-import Product from "./selleredit/Product";
-import Subscription from "./sellersubscription/Subscription";
-import SellerNav from "./sellernav/SellerNav";
+import Sellernav from "./sellernav/Sellernav";
+
+// import Dashboard from "./sellernav/Dashboard";
+// import Term from "./sellersales/Term";
+// import Type from "./sellersales/Type";
+// import Catalog from "./selleredit/Catalog";
+// import Profile from "./selleredit/Profile";
+// import Product from "./selleredit/Product";
+// import Subscription from "./sellersubscription/Subscription";
+// import SellerSubOrders from "./sellerorders/SellerSubOrders";
+// import SellerGenOrders from "./sellerorders/SellerGenOrders";
 
 function App() {
   return (
@@ -23,7 +24,6 @@ function App() {
           {/* Route without Header */}
           <Route path="/loginpage" element={<LoginPage />} />
           <Route path="/api/customers/register" element={<RegisterPage />} />
-          {/* <Route path="/admin/sellernav" element={<Sellernav />} /> */}
 
           {/* Route with Header */}
           <Route
@@ -44,25 +44,31 @@ function App() {
           />
 
           {/* Route with admin */}
-          <Route
-            path="/admin/*"
-            element={
-              <>
-                <SellerNav />
-                <Routes>
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/edit/catalog" element={<Catalog />} />
-                  <Route path="/edit/profile" element={<Profile />} />
-                  <Route path="/edit/product" element={<Product />} />
-                  <Route path="/sales/term" element={<Term />} />
-                  <Route path="/sales/type" element={<Type />} />
-                  <Route path="/orders/suborders" element={<SubOrders />} />
-                  <Route path="/orders/genorders" element={<GenOrders />} />
-                  <Route path="/subscription" element={<Subscription />} />
-                </Routes>
-              </>
+          <Route path="/admin/*" element={<Sellernav />} />
+          {/* // <>
+              //   <SellerNav />
+              //   <main id="admin-main">
+              //     <Routes>
+              //       <Route path="/dashboard" element={<Dashboard />} />
+              //       <Route path="/edit/catalog" element={<Catalog />} />
+              //       <Route path="/edit/profile" element={<Profile />} />
+              //       <Route path="/edit/product" element={<Product />} />
+              //       <Route path="/sales/term" element={<Term />} />
+              //       <Route path="/sales/type" element={<Type />} />
+              //       <Route
+              //         path="/orders/suborders"
+              //         element={<SellerSubOrders />}
+              //       />
+              //       <Route
+              //         path="/orders/genorders"
+              //         element={<SellerGenOrders />}
+              //       />
+              //       <Route path="/subscription" element={<Subscription />} />
+              //     </Routes>
+              //   </main>
+              // </>
             }
-          />
+          /> */}
         </Routes>
       </div>
     </Router>
