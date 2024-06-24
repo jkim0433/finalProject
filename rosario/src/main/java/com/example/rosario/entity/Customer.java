@@ -17,7 +17,11 @@ public class Customer {
     private Long customerId;
     private String customerNm;
     private Date customerBirthDt;
-    private Long customerCno;
+    //private Long customerCno;  기존 설정
+
+    @Column(name = "customer_cno", nullable = false, length = 20) // length는 필요에 따라 조정
+    private String customerCno;   // 도혜 추가
+
     private String customerAdr;
     private String customerEmlAdr;
     private String customerPassword;

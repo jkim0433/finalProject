@@ -7,7 +7,8 @@ public class CustomerDto {
     private Long customerId;
     private String customerNm;
     private Date customerBirthDt;
-    private Long customerCno;
+    //  private Long customerCno;
+    private String customerCno;
     private String customerAdr;
     private String customerEmlAdr;
     private String customerPassword;
@@ -37,14 +38,20 @@ public class CustomerDto {
         this.customerBirthDt = customerBirthDt;
     }
 
-    public Long getCustomerCno() {
+
+//    public Long getCustomerCno() {
+//        return customerCno;
+//    }
+    public String getCustomerCno() {
         return customerCno;
     }
 
-    public void setCustomerCno(Long customerCno) {
-        this.customerCno = customerCno;
-    }
-
+//    public void setCustomerCno(Long customerCno) {
+//        this.customerCno = customerCno;
+//    }
+public void setCustomerCno(String customerCno) {
+    this.customerCno = customerCno;
+}
     public String getCustomerAdr() {
         return customerAdr;
     }
