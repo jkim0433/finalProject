@@ -33,12 +33,38 @@ function LoginPage() {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
+      
+    console.log("로그인 성공 JSON 응답:", response);
+
       // 로그인 성공 후 홈 페이지로 이동
       navigate("/");
     } catch (error) {
       console.error("로그인 오류:", error);
     }
   };
+
+  // const handleLogin = async (event) => {
+  //   event.preventDefault();
+    
+  //   try {
+  //     const response = await fetch("http://localhost:8081/perform_login", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify(credentials)
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
+
+  //     // 로그인 성공 후 홈 페이지로 이동
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.error("로그인 오류:", error);
+  //   }
+  // };
 
   return (
     <div className="h-screen items-center flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
