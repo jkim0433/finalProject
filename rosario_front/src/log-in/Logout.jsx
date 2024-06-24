@@ -1,5 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
-import styles from "./Login.css"; 
+import React from "react";
 
 const Logout = ({ className, onLogout }) => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const Logout = ({ className, onLogout }) => {
   };
 
   return (
-    <Link to="#" onClick={handleLogout} className={className}>
+    <Link to="/" onClick={handleLogout} className={className}>
       Logout
     </Link>
   );
