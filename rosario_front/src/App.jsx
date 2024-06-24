@@ -5,6 +5,8 @@ import RegisterPage from "./log-in/RegisterPage";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Sellernav from "./sellernav/Sellernav";
+import SellerRegisterPage from "./log-in/SellerRegisterPage";
+import ImgLinkConverter from "./shop/ImgLinkConverter";
 
 function App() {
   return (
@@ -14,10 +16,12 @@ function App() {
           {/* Route without Header */}
           <Route path="/loginpage" element={<LoginPage />} />
           <Route path="/api/customers/register" element={<RegisterPage />} />
+          <Route path="/api/sellers/register" element={<SellerRegisterPage />} />
+          <Route path="/api/uploadProdImg" element={<ImgLinkConverter />} />
 
           {/* Route with Header */}
           <Route
-            path="/"
+            path="/*"
             element={
               <>
                 <header>
@@ -26,7 +30,6 @@ function App() {
                 <main id="main">
                   <Routes>
                     <Route path="/" element={<Home />} />
-                    {/* <Route path="/api/customers/{customerId}" element={<MyPage />} /> */}
                   </Routes>
                 </main>
                 <footer id="footer">{/* Footer content */}</footer>
@@ -36,6 +39,7 @@ function App() {
 
           {/* Route with admin */}
           <Route path="/admin/*" element={<Sellernav />} />
+
         </Routes>
       </div>
     </Router>
