@@ -21,7 +21,7 @@ function LoginPage() {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8081/perform_login", {
+      const response = await fetch("http://localhost:8081/do_login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,16 +32,49 @@ function LoginPage() {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
+      console.log("123");
 
-      // const jsonResponse = await response.json();
-      // console.log("로그인 성공 JSON 응답:");
+      // 서버로부터 JSON 형식의 응답을 받음
+      const data = await response.json();
+      console.log("456");
 
-      // 로그인 성공 후 홈 페이지로 이동
-      navigate("/");
+      // 받은 데이터의 유효성 검사 및 처리
+      if (data && data.token) {
+        console.log("로그인 성공!");
+        console.log("사용자 정보:", data.user);
+        console.log("JWT 토큰:", data.token);
+
+        // JWT 토큰을 로컬 스토리지에 저장
+        localStorage.setItem("token", data.token);
+
+        // 로그인 성공 후 홈 페이지로 이동
+        navigate("/");
+      } else {
+        throw new Error("로그인 오류: 서버에서 올바른 응답을 받지 못했습니다.");
+      }
     } catch (error) {
       console.error("로그인 오류:", error);
     }
   };
+  // const handleLogin = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const response = await fetch("http://localhost:8081/perform_login", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify(credentials)
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
+  //     // 로그인 성공 후 홈 페이지로 이동
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.error("로그인 오류:", error);
+  //   }
+  // };
 
   // const handleLogin = async (event) => {
   //   event.preventDefault();
@@ -90,7 +123,7 @@ function LoginPage() {
                 autoComplete="email"
                 required
                 className="border block w-full rounded-full border-0 py-1.5 px-4 text-neutral-900 placeholder:text-gray-400 -indigo-600 sm:text-sm sm:leading-6"
-                value={credentials.username}
+                value={credentials.email}
                 onChange={handleChange}
               />
             </div>
