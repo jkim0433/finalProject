@@ -16,6 +16,16 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @PostMapping("/register")
+    public ResponseEntity<Product> registerProduct(@RequestBody Product product) {
+        try {
+            Product savedProduct = productService.saveProduct(product);
+            return ResponseEntity.ok(savedProduct);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+
     @GetMapping("/seller/{sellerId}")
     public ResponseEntity<List<Product>> getProductsBySellerId(@PathVariable("sellerId") String sellerId) {
         List<Product> products = productService.getProductsBySellerId(Long.parseLong(sellerId));
@@ -27,5 +37,6 @@ public class ProductController {
         ProductDetailDto productDetailDto = productService.getProductDetail(Long.parseLong(productId));
         return ResponseEntity.ok(productDetailDto);
     }
+
 
 }

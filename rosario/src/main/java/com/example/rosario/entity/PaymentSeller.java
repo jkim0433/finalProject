@@ -11,11 +11,11 @@ public class PaymentSeller {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productSellerId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paymentId")
     private Payment payment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sellerId")
     private Seller seller;
 

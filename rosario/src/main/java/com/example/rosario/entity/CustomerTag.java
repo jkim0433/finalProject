@@ -11,11 +11,11 @@ public class CustomerTag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customTagId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customerId" ,nullable = false)
     private Customer customer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chipTagId" ,nullable = false)
     private ChipTag chipTag;
 }

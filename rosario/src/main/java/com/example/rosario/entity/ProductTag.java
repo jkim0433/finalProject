@@ -15,11 +15,11 @@ public class ProductTag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productTagId;   // 상품취향 ID
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;         // 상품 ID (FK)
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chipTagId")
     private ChipTag chipTag;
 

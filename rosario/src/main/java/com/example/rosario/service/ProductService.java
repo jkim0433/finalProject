@@ -25,7 +25,9 @@ public class ProductService {
     private ProductSellerRepository productSellerRepository;
     @Autowired
     private ProductImgRepository productImgRepository;
-
+    public Product saveProduct(Product product) {
+        return productRepository.save(product);
+    }
 
     public List<Product> getProductsBySellerId(Long sellerId) {
         // SellerID로 상품 판매자 목록 조회하기
@@ -44,8 +46,10 @@ public class ProductService {
         if (productOpt.isPresent()) {
             Product product = productOpt.get();
 
-            Set<ProductImg> productImages = (Set<ProductImg>) productImgRepository.findByProductProductId(productId);
-
+            // ProductImg를 List에서 Set으로 변환
+            Set<ProductImg> productImages = productImgRepository.findByProductProductId(productId)
+                    .stream()
+                    .collect(Collectors.toSet());
             ProductDetailDto productDetailDto = new ProductDetailDto();
             productDetailDto.setProductId(product.getProductId());
             productDetailDto.setProductNm(product.getProductNm());

@@ -16,11 +16,11 @@ public class ProductSeller {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productSellerId;   // 상품판매자 ID
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;         // 상품 ID (FK)
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id", nullable = false)
     private Seller seller;          // 판매자 ID (FK)
 }

@@ -18,7 +18,7 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subscribeId;       // 구독 ID
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orders_id", nullable = false)
     private Orders orders;      // 주문 ID (FK)
 
@@ -29,11 +29,11 @@ public class Subscription {
     @Column(nullable = false)
     private Long totalNum;          // 주문 총 이용 횟수
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;      // 고객 ID (FK)
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id", nullable = false)
     private Seller seller;          // 판매자 ID (FK)
 
