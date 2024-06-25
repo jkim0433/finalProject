@@ -41,36 +41,37 @@ const Header = () => {
             type="button"
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-red-600 m-2"
             // onClick={() => setMobileMenuOpen(true)}
+            // onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
           >
             {/* <span className="sr-only">Open main menu</span> */}
-            <Bars3Icon className="h-6 w-6" />
+            <Bars3Icon className="h-6 w-6 inline-flex items-center gap-x-1 leading-6" />
+            
           </button>
+
+          
         </div>
 
         <div id="menu" className="lg:justify-center">
           <ul className="flex items-center justify-center lg:justify-between hidden lg:flex lg:gap-x-12">
-            {headerMenus.map((menu, key) => (
-              <li key={key} className="text-red-600 font-semibold border">
-                <Link to={menu.link}>{menu.title}</Link>
-              </li>
-            ))}
+            {headerMenus.map((menu, key) => {
+              // Check if the role is ROLE_SELLER to conditionally render "mypage"
+              if (menu.title === "mypage" && roles.includes("ROLE_SELLER")) {
+                return null; // Don't render mypage link for ROLE_SELLER
+              }
+              return (
+                <li key={key} className="text-red-600 font-semibold border">
+                  <Link to={menu.link}>{menu.title}</Link>
+                </li>
+              );
+            })}
             {roles.includes("ROLE_SELLER") && (
               <li className="text-red-600 font-semibold border">
-                <Link to="/admin/dashboard">seller</Link>
+                <Link to="/admin/dashboard">dashboard</Link>
               </li>
             )}
           </ul>
         </div>
 
-        {/* <ul className='menu_login flex lg:justify-end'>
-              {loginMenus.map((menu, key) => (
-                <button key={key} id='btn_rounded' className='m-1 overflow-wrap-normal'>
-                  <Link to={menu.link}>
-                    {menu.title}
-                  </Link>
-                </button>
-              ))}
-            </ul> */}
 
         <ul className="menu_login flex lg:justify-end">
           {/* Conditional rendering based on authentication state */}

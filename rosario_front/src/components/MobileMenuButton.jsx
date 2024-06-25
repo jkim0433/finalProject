@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { navigation } from "../data/menu";
 import classNames from 'classnames';
 
 const MobileMenuButton = () => {
-//   const [open, setOpen] = useState(false); // State to track if menu is open
-
   return (
     <Disclosure>
       {({ open }) => (
@@ -25,15 +23,15 @@ const MobileMenuButton = () => {
           </DisclosureButton>
 
           {/* Mobile menu panel */}
-          <DisclosurePanel className="md:hidden">
-            <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+          <DisclosurePanel className="md:hidden absolute top-0 left-0 w-full bg-white shadow-lg rounded-lg z-10 mt-3">
+            <div className="p-4 space-y-4">
               {/* Navigation links */}
               {navigation.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
                   className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    item.current ? 'bg-gray-900 text-white' : 'text-gray-900 hover:bg-gray-100',
                     'block rounded-md px-3 py-2 text-base font-medium',
                   )}
                   aria-current={item.current ? 'page' : undefined}

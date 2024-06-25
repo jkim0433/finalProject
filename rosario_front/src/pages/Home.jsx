@@ -6,6 +6,7 @@ import image1 from "../img/image1.png";
 import image2 from "../img/image1.png";
 import image3 from "../img/image1.png";
 import image4 from "../img/image5.png";
+import Gallery from "../shop/gallery";
 
 const Home = () => {
   return (
@@ -60,6 +61,10 @@ const Home = () => {
             Experience beautiful bouquets and unforgettable moments with our
             service!{" "}
           </p>
+        </div>
+
+        <div className="gallery mt-20">
+              <Gallery />
         </div>
       </main>
     </div>
