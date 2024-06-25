@@ -1,8 +1,11 @@
 package com.example.rosario.service;
 
+import com.example.rosario.dto.OrdersDto;
 import com.example.rosario.repository.OrdersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 // 매출 조회 관련 service
 @Service
@@ -24,13 +27,18 @@ public class OrdersService {
     public Long getQuarterlySales(int year, int quarter) {
         return ordersRepository.getQuarterlySales(year, quarter);
     }
+
     // 연도별 매출 조회
     public Long getYearlySales(int year) {
         return ordersRepository.getYearlySales(year);
     }
 
-}
+    // 금일 매출표
+    public List<OrdersDto> getTodaySalesList(int year, int month, int day) {
+        return ordersRepository.findDailySalesList(year, month, day);
+    }
 
+}
 //    // 월별 매출 조회
 //    public Long getMonthlySales(int year, int month){
 ////        Calendar calendar = Calendar.getInstance();
