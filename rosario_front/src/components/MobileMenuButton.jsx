@@ -43,11 +43,11 @@ const MobileMenuButton = ({ isOpen, onClose }) => {
       <div className="flex justify-end p-4">
         <button
           type="button"
-          className="text-white"
+          className="text-amber-200 font-bold hover:text-red-900"
           // 모바일 메뉴를 닫는 로직을 추가할 수 있습니다
           onClick={handleCloseMenu}
         >
-          X
+          x
         </button>
       </div>
       <div className="flex flex-col ml-10 mt-10 justify-left f-full">
@@ -59,13 +59,13 @@ const MobileMenuButton = ({ isOpen, onClose }) => {
               return null; // ROLE_SELLER에게는 mypage 링크를 렌더링하지 않습니다
             }
             return (
-              <li key={key} className="text-orange-50 font-bold">
+              <li key={key} className="text-amber-100 font-bold hover:text-red-900">
                 <Link to={menu.link}>{menu.title}</Link>
               </li>
             );
           })}
           {roles.includes("ROLE_SELLER") && (
-            <li className="text-orange-50 font-bold">
+            <li className="text-amber-100 font-bold hover:text-red-900">
               <Link to="/admin/dashboard">dashboard</Link>
             </li>
           )}
@@ -76,17 +76,17 @@ const MobileMenuButton = ({ isOpen, onClose }) => {
             {isAuthenticated ? (
               // 인증되었을 때 로그아웃 버튼을 보여줍니다
               <>
-                <li className="text-orange-50 font-bold">
+                <li className="text-amber-100 font-bold hover:text-red-900">
                   <Link to="/cart">Cart</Link>
                 </li>
-                <button className="text-orange-50 font-bold" onClick={handleLogout}>
+                <button className="text-amber-100 font-bold hover:text-red-900" onClick={handleLogout}>
                   Logout
                 </button>
               </>
             ) : (
               // 미인증 상태일 때 로그인 버튼을 보여줍니다
               loginMenus.map((menu, key) => (
-                <li key={key} className="text-orange-50 font-bold">
+                <li key={key} className="text-amber-100 font-bold hover:text-red-900">
                   <Link to={menu.link}>{menu.title}</Link>
                 </li>
               ))

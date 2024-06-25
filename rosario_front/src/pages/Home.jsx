@@ -33,7 +33,7 @@ const Home = () => {
       <main className="py-6 px-4 sm:p-6 md:py-10 md:px-8">
         <div className="max-w-4xl mx-auto grid grid-cols-1 lg:max-w-5xl lg:gap-x-20 ">
           <div className="relative p-3 col-start-1 row-start-1 flex flex-col-reverse rounded-lg bg-gradient-to-t from-black/75 via-black/0 sm:bg-none sm:row-start-2 sm:p-0 lg:row-start-1">
-            <h1 className="italic mt-1 text-lg font-semibold text-white sm:text-red-600 md:text-2xl dark:sm:text-white">
+            <h1 className="italic mt-1 text-lg font-semibold text-white sm:text-red-600 sm:hover:text-amber-200 md:text-2xl dark:sm:text-white hover:text-red-600">
               Welcome to our services
             </h1>
           </div>
@@ -48,7 +48,7 @@ const Home = () => {
           <div className="mt-4 w-100 align-end col-start-1 row-start-3 self-center sm:mt-0 sm:col-start-2 sm:row-start-2 sm:row-span-2 lg:col-start-1 lg:row-start-3 lg:row-end-4">
             <button
               type="button"
-              className="mt-4 py-1 px-5 bg-red-600 flex w-md justify-center rounded-full px-3 py-1.5 text-bold text-orange-100"
+              className="hover:bg-amber-100 hover:text-red-600 mt-4 py-1 px-5 bg-red-600 flex w-md justify-center rounded-full px-3 py-1.5 text-extrabold text-amber-100"
             >
               Entrance
             </button>

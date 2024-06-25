@@ -47,7 +47,7 @@ const Header = () => {
         <div className="flex">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-red-600 m-2"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-red-600 m-2 hover:text-amber-100"
             onClick={toggleMobileMenu}
           >
             <Bars3Icon className="h-6 w-6 inline-flex items-center gap-x-1 leading-6" />
@@ -62,13 +62,13 @@ const Header = () => {
                 return null; // ROLE_SELLER에게는 mypage 링크를 렌더링하지 않습니다
               }
               return (
-                <li key={key} className="text-red-600 font-semibold border">
+                <li key={key} className="text-red-600 font-semibold border hover:text-amber-100">
                   <Link to={menu.link}>{menu.title}</Link>
                 </li>
               );
             })}
             {roles.includes("ROLE_SELLER") && (
-              <li className="text-red-600 font-semibold border">
+              <li className="text-red-600 font-semibold border hover:text-amber-100">
                 <Link to="/admin/dashboard">dashboard</Link>
               </li>
             )}
@@ -80,7 +80,7 @@ const Header = () => {
           {isAuthenticated ? (
             // 인증되었을 때 로그아웃 버튼을 보여줍니다
             <>
-              <button id="btn_rounded" className="m-1 overflow-wrap-normal">
+              <button id="btn_rounded" className="m-1 overflow-wrap-normal hover:text-red-600">
                 <Link to="/cart">Cart</Link>
               </button>
               <button
