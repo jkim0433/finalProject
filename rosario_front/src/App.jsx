@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate, } from "react-router-dom";
 import LoginPage from "./log-in/LoginPage";
 import RegisterPage from "./log-in/RegisterPage";
 import Header from "./components/Header";
@@ -9,6 +9,22 @@ import SellerRegisterPage from "./log-in/SellerRegisterPage";
 import ImgLinkConverter from "./shop/ImgLinkConverter";
 
 function App() {
+  const [roles, setRoles] = useState([]);
+
+  useEffect(() => {
+    // localStorage에서 roles 가져오기
+    const storedRoles = localStorage.getItem("roles");
+    if (storedRoles) {
+      try {
+        const parsedRoles = JSON.parse(storedRoles);
+        setRoles(parsedRoles); // roles 상태 업데이트
+        console.log("roles in App", parsedRoles);
+      } catch (error) {
+        console.error("localStorage에서 roles 파싱 오류:", error);
+      }
+    }
+  }, []);
+
   return (
     <Router>
       <div>
@@ -38,8 +54,16 @@ function App() {
           />
 
           {/* Route with admin */}
-          <Route path="/admin/*" element={<Sellernav />} />
-
+          <Route
+            path="/admin/*"
+            element={
+              roles.includes("ROLE_SELLER") ? (
+                <Sellernav />
+              ) : (
+                <Navigate to="/loginpage" replace />
+              )
+            }
+          />
         </Routes>
       </div>
     </Router>

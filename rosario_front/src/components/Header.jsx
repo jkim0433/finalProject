@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
 import { headerMenus, loginMenus } from "../data/menu";
 // import MenuIcon from '../svg/MenuIcon';
@@ -8,9 +8,25 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 const Header = () => {
   const isAuthenticated = !!localStorage.getItem("token"); // Check if token exists
 
+  const [roles, setRoles] = useState([]);
+
+  useEffect(() => {
+    // localStorage에서 roles 가져오기
+    const storedRoles = localStorage.getItem("roles");
+    if (storedRoles) {
+      try {
+        const parsedRoles = JSON.parse(storedRoles);
+        setRoles(parsedRoles); // roles 상태 업데이트
+      } catch (error) {
+        console.error("localStorage에서 roles 파싱 오류:", error);
+      }
+    }
+  }, []);
+
   const handleLogout = () => {
     // Clear token from localStorage
     localStorage.removeItem("token");
+    localStorage.removeItem("roles");
     // Optionally, update UI state or redirect
     // For example, redirect to login page after logout
     window.location.replace("/"); // Redirect to login page
@@ -27,7 +43,7 @@ const Header = () => {
             // onClick={() => setMobileMenuOpen(true)}
           >
             {/* <span className="sr-only">Open main menu</span> */}
-            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+            <Bars3Icon className="h-6 w-6" />
           </button>
         </div>
 
@@ -38,6 +54,11 @@ const Header = () => {
                 <Link to={menu.link}>{menu.title}</Link>
               </li>
             ))}
+            {roles.includes("ROLE_SELLER") && (
+              <li className="text-red-600 font-semibold border">
+                <Link to="/admin/dashboard">seller</Link>
+              </li>
+            )}
           </ul>
         </div>
 
@@ -56,16 +77,17 @@ const Header = () => {
           {isAuthenticated ? (
             // Show Logout Button when authenticated
             <>
-            <button id='btn_rounded' className='m-1 overflow-wrap-normal'>
-                <Link to='/cart'>
-                  Cart
-                </Link>
+              <button id="btn_rounded" className="m-1 overflow-wrap-normal">
+                <Link to="/cart">Cart</Link>
               </button>
-              <button id='btn_rounded' className='m-1 overflow-wrap-normal' onClick={handleLogout}>
+              <button
+                id="btn_rounded"
+                className="m-1 overflow-wrap-normal"
+                onClick={handleLogout}
+              >
                 Logout
               </button>
             </>
-           
           ) : (
             // Show Login Button when not authenticated
             loginMenus.map((menu, key) => (
