@@ -7,7 +7,7 @@ import image9 from "../img/image2.png";
 
 const Gallery = () => {
   return (
-    <div className="max-w-4xl mx-auto grid grid-flow-col grid-rows-2 grid-cols-3 gap-6">
+    <div className="mb-5 max-w-4xl mx-auto grid grid-flow-col grid-rows-2 grid-cols-3 gap-6">
       <div>
         <img src={image5} alt="" loading="lazy" className="w-full h-60 object-cover rounded-lg hover:scale-110 transition-transform duration-300 ease-in-out" />
       </div>

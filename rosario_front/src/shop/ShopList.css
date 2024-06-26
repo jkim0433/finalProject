@@ -6,6 +6,10 @@ ul,
 li {
     list-style: none;
 }
+.shop_list {
+    border-top: 1px dashed #bbb;
+    border-bottom: 1px dashed #bbb;
+}
 
 .wrapper {
     .slide_container {
@@ -20,35 +24,33 @@ li {
             align-items: center;
             flex-wrap: nowrap;
             position: relative;
-            border-top: 1px solid #bbb;
-            border-bottom: 1px solid #bbb;
-            padding: 40px 0;
+            padding: 10px 0;
 
             &::before {
                 content: "";
                 display: block;
-                width: 100%;
-                height: 1px;
+                /* width: 100%;
+                height: 1px; */
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                background-color: #bbb;
+                /* background-color: #bbb; */
                 z-index: 1;
             }
             &.original {
-                animation: 10s linear infinite normal none running
+                animation: 40s linear infinite normal none running
                     infiniteAnimation1;
             }
             &.clone {
-                animation: 10s linear infinite infiniteAnimation2;
+                animation: 40s linear infinite infiniteAnimation2;
             }
             &.stop {
                 animation-play-state: paused;
             }
 
             li {
-                margin: 0 80px;
+                margin: 0 20px;
                 cursor: pointer;
                 z-index: 2;
                 transition: 0.3s;
@@ -67,12 +69,12 @@ li {
                     }
                 }
                 &.big {
-                    width: 280px;
-                    height: 280px;
+                    width: 100px;
+                    height: 30px;
                 }
                 &.small {
-                    width: 200px;
-                    height: 200px;
+                    width: 100px;
+                    height: 30px;
                 }
 
                 .item {
