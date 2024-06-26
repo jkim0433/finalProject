@@ -1,5 +1,6 @@
 package com.example.rosario.service;
 
+import com.example.rosario.auth.CustomUserDetails;
 import com.example.rosario.entity.Customer;
 import com.example.rosario.entity.Seller;
 import com.example.rosario.repository.CustomerRepository;
@@ -33,14 +34,16 @@ public class CustomUserDetailsService implements UserDetailsService {
         Customer customer = customerRepository.findByCustomerEmlAdr(email).orElse(null);
         if (customer != null) {
             GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_USER");
-            return new User(customer.getCustomerEmlAdr(), customer.getCustomerPassword(), Collections.singletonList(authority));
+            return new CustomUserDetails(customer.getCustomerId(), customer.getCustomerEmlAdr(), customer.getCustomerPassword(),
+                    Collections.singletonList(authority), null, customer.getCustomerId());
         }
 
         // Customer에서 찾지 못했을 경우, Seller에서 이메일로 사용자를 찾음
         Seller seller = sellerRepository.findBySellerEmailAdr(email).orElseThrow(() ->
                 new UsernameNotFoundException("User not found with email: " + email));
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_SELLER");
-        return new User(seller.getSellerEmailAdr(), seller.getSellerPassword(), Collections.singletonList(authority));
+        return new CustomUserDetails(seller.getSellerId(), seller.getSellerEmailAdr(), seller.getSellerPassword(),
+                Collections.singletonList(authority), seller.getSellerId(), null);
     }
 //    이제, 사용자가 /api/customers/register 엔드포인트로 회원가입 요청을 보내면,
 //    CustomerService에서 비밀번호를 암호화하여 저장하고, 이후 Spring Security가 사용자 인증을 처리할 때

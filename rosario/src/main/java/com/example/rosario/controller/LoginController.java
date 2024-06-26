@@ -1,5 +1,6 @@
 package com.example.rosario.controller;
 
+import com.example.rosario.auth.CustomUserDetails;
 import com.example.rosario.auth.JwtProvider;
 import com.example.rosario.dto.LoginRequest;
 import com.example.rosario.service.CustomUserDetailsService;
@@ -55,7 +56,7 @@ public class LoginController {
             logger.info("Security context updated");
 
             // 인증된 사용자의 UserDetails 정보를 가져옴
-            UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getEmail());
+            CustomUserDetails userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(loginRequest.getEmail());
             logger.info("User details loaded: {}", userDetails.getUsername());
 
             // JWT 토큰 생성
@@ -66,6 +67,8 @@ public class LoginController {
             Map<String, Object> responseMap = new HashMap<>();
             responseMap.put("user", userDetails);
             responseMap.put("token", jwtToken);
+            responseMap.put("sellerId", userDetails.getSellerId());
+            responseMap.put("customerId", userDetails.getCustomerId());
 
             // 맵을 JSON 문자열로 변환하여 반환
             String responseBody = objectMapper.writeValueAsString(responseMap);
