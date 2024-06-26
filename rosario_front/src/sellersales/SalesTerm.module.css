@@ -1,0 +1,11 @@
+.salesTerm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .salesTerm .ant-card {
+    margin-bottom: 20px;
+  }
+  
+
