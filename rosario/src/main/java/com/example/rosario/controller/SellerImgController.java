@@ -97,18 +97,18 @@ public class SellerImgController {
     @PatchMapping("/s/{sellerId}")
     public ResponseEntity<?> updateFilePath(@PathVariable("sellerId") Long sellerId, @RequestBody Map<String, String> body) {
         String filename = body.get("filename");
-        String filePath = body.get("filePath");
+        String fileUri = body.get("fileUri");
 
         logger.info("Received request to update file path for sellerId: {}", sellerId);
         logger.info("Filename: {}", filename);
-        logger.info("File Path: {}", filePath);
+        logger.info("File Path: {}", fileUri);
 
-        if (filename == null || filePath == null) {
+        if (filename == null || fileUri == null) {
             return ResponseEntity.badRequest().body("filename과 filePath를 제공해야 합니다.");
         }
 
         try {
-            SellerImg updatedSellerImg = sellerImgService.updateFile(sellerId, filename, filePath);
+            SellerImg updatedSellerImg = sellerImgService.updateFile(sellerId, filename, fileUri);
             return ResponseEntity.ok(updatedSellerImg);
         } catch (Exception e) {
             logger.error("파일 경로 업데이트 오류", e);

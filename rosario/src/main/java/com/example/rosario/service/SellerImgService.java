@@ -40,13 +40,31 @@ public class SellerImgService {
         }
         Seller seller = sellerOpt.get();
 
-        Optional<SellerImg> existingImgOpt = sellerImgRepository.findBySellerAndSellerFilename(seller, filename);
-        if (!existingImgOpt.isPresent()) {
-            throw new Exception("이미지를 찾을 수 없습니다.");
+        // sellerId와 일치하는 이미지들을 모두 조회
+        List<SellerImg> sellerImages = sellerImgRepository.findBySellerSellerId(sellerId);
+
+        // filename과 일치하는 이미지 중 첫 번째 이미지를 업데이트하거나 새로 생성
+        Optional<SellerImg> existingImgOpt = sellerImages.stream()
+                .filter(img -> img.getSellerFilename().equals(filename))
+                .findFirst();
+
+        SellerImg updatedImg;
+        if (existingImgOpt.isPresent()) {
+            // 기존 이미지가 존재하면 filePath 업데이트
+            SellerImg existingImg = existingImgOpt.get();
+            existingImg.setSellerFilePath(filePath);
+            updatedImg = sellerImgRepository.save(existingImg);
+        } else {
+            // 기존 이미지가 없으면 새로 생성
+            SellerImg newImg = new SellerImg();
+            newImg.setSeller(seller);
+            newImg.setSellerFilename(filename);
+            newImg.setSellerFilePath(filePath);
+            updatedImg = sellerImgRepository.save(newImg);
         }
 
-        SellerImg existingImg = existingImgOpt.get();
-        existingImg.setSellerFilePath(filePath);
-        return sellerImgRepository.save(existingImg);
+        return updatedImg; // 적절히 updatedImg를 반환하도록 설정해야 합니다.
     }
+
+
 }
