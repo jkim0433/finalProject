@@ -7,6 +7,7 @@ import image2 from "../img/image1.png";
 import image3 from "../img/image1.png";
 import image4 from "../img/image5.png";
 import Gallery from "../shop/gallery";
+import ShopList from "../shop/ShopList";
 
 const Home = () => {
   return (
@@ -31,7 +32,7 @@ const Home = () => {
       </div>
 
       <main className="py-6 px-4 sm:p-6 md:py-10 md:px-8">
-        <div className="max-w-4xl mx-auto grid grid-cols-1 lg:max-w-5xl lg:gap-x-20 ">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 lg:max-w-4xl lg:gap-x-20 ">
           <div className="relative p-3 col-start-1 row-start-1 flex flex-col-reverse rounded-lg bg-gradient-to-t from-black/75 via-black/0 sm:bg-none sm:row-start-2 sm:p-0 lg:row-start-1">
             <h1 className="italic mt-1 text-lg font-semibold text-white sm:text-red-600 sm:hover:text-amber-200 md:text-2xl dark:sm:text-white hover:text-red-600">
               Welcome to our services
@@ -41,7 +42,7 @@ const Home = () => {
             <img
               src={image4}
               alt=""
-              className="w-full h-60 object-cover rounded-lg sm:h-72 sm:col-span-2 lg:col-span-full"
+              className="w-full h-60 object-cover rounded-lg sm:h-72 sm:col-span-2 lg:col-span-full hover:shadow-xl"
               loading="lazy"
             />
           </div>
@@ -66,6 +67,11 @@ const Home = () => {
         <div className="gallery mt-20">
               <Gallery />
         </div>
+
+        <div className="shop_list">
+          <ShopList />
+        </div>
+        
       </main>
     </div>
   );

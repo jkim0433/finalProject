@@ -46,16 +46,23 @@ function LoginPage() {
         console.log("JWT 토큰:", data.token);
 
         const user = data.user;
+        // 사용자 정보에서 권한을 추출
         const roles = user.authorities.map((auth) => auth.authority);
 
         const emailAdr = user.username;
+        const sellerId = user.sellerId;
+        const costomerId = user.costomerId;
         console.log("로그인 성공 사용자 이메일:", emailAdr);
+        console.log("로그인 성공 사용자 ID,S/C:", sellerId, "/", costomerId);
+
         // JWT 토큰과 사용자 정보를 로컬 스토리지에 저장
         localStorage.setItem("token", data.token);
         localStorage.setItem("emlAdr", emailAdr);
+        localStorage.setItem("sellerId", sellerId);
+        localStorage.setItem("costomerId", costomerId);
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("roles", JSON.stringify(roles)); // 권한을 로컬 스토리지에 저장
-
+        
         // 로그인 성공 후 홈 페이지로 이동
         navigate("/");
       } else {
