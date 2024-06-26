@@ -40,6 +40,14 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     Long getYearlySales(@Param("year") int year);
 
 
+    // 금일 매출표
+    @Query("SELECT NEW com.example.rosario.dto.OrdersDto(o.ordersId,c.customerNm, o.ordersDate, o.ordersEA * p.productPrice, CASE WHEN o.totalNum >= 2  THEN '구독' ELSE '일반' END) " +
+            "FROM Orders o " +
+            "JOIN o.product p " +
+            "JOIN o.customer c " +
+            "WHERE FUNCTION('YEAR', o.ordersDate) = :year AND FUNCTION('MONTH', o.ordersDate) = :month AND FUNCTION('DAY', o.ordersDate) = :day")
+    List<OrdersDto> findDailySalesList(@Param("year") int year, @Param("month") int month,  @Param("day") int day);
+
 
     // ----------------- 구독과 관련된 쿼리 --------------------
     // 구독자의 퍼센트 계산
@@ -51,7 +59,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     Double calculateSubscriptionPercentage(@Param("year") int year, @Param("month") int month);
 
     // 구독자 리스트
-    @Query("SELECT NEW com.example.rosario.dto.OrdersDto(c.customerNm, o.ordersDate, o.ordersEA * p.productPrice) " +
+    @Query("SELECT NEW com.example.rosario.dto.OrdersDto(o.ordersId,c.customerNm, o.ordersDate, o.ordersEA * p.productPrice, CASE WHEN o.totalNum >= 2 THEN '구독' ELSE '일반' END ) " +
             "FROM Orders o " +
             "JOIN o.product p " +
             "JOIN o.customer c " +
@@ -59,7 +67,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     List<OrdersDto> findSubscribedList(@Param("year") int year, @Param("month") int month);
 
     // 비구독자 리스트
-    @Query("SELECT NEW com.example.rosario.dto.OrdersDto(c.customerNm, o.ordersDate, o.ordersEA * p.productPrice) " +
+    @Query("SELECT NEW com.example.rosario.dto.OrdersDto(o.ordersId,c.customerNm, o.ordersDate, o.ordersEA * p.productPrice ,CASE WHEN o.totalNum >= 2  THEN '구독' ELSE '일반' END) " +
             "FROM Orders o " +
             "JOIN o.product p " +
             "JOIN o.customer c " +

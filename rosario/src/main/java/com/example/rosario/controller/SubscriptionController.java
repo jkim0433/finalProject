@@ -30,10 +30,10 @@ public class SubscriptionController {
         chartData.setSubscribedPercentage(subscriptionPercentage);
         chartData.setUnsubscribedPercentage(unsubscribedPercentage);
 
-        // 구독과 일반 리스트 조회 및 설정
+        // 구독 조회 및 설정
         List<OrdersDto> subscribedList = subscriptionService.getSubscribedList(year, month);
 
-        // 비구독과 일반 리스트 조회 및 설정
+        // 비구독 조회 및 설정
         List<OrdersDto> unsubscribedList = subscriptionService.getUnsubscribedList(year, month);
 
         chartData.setSubscribedList(subscribedList);

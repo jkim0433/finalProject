@@ -12,18 +12,23 @@ public class OrdersDto {
     private Long totalNum;
     private Long ordersEA;
     private String ordersAdr;
-    private Date ordersDate;
     private Long customerId;
     private Long productId;
 
     // 아래(도혜 추가 -구독자와 비구독자를 알기 위한 dto)
     private String customerNm;
+    private Date ordersDate;
     private Long totalAmount;
 
+    private String subscriptionType; // 구독/일반을 문자열로 저장할 필드
+
     //구독자와 비구독자를 알기 위한 dto
-    public OrdersDto(String customerNm, Date ordersDate, Long totalAmount) {
+    public OrdersDto(Long ordersId,String customerNm, Date ordersDate, Long totalAmount, String subscriptionType ) {
+        this.ordersId = ordersId;
         this.customerNm = customerNm;
         this.ordersDate = ordersDate;
-        this.totalAmount = totalAmount;
+        this.totalAmount = totalAmount.longValue(); ;
+        this.subscriptionType = subscriptionType;
+
     }
 }

@@ -5,6 +5,13 @@
    border: solid 1px #F9F3C4;
    color: #F9F3C4;
    font-weight: 100;
+   transition: background-color 0.3s ease
+}
+
+#btn_rounded:hover {
+   color: #F23030;
+   font-weight: 400;
+   border: solid 1px #F23030;
 }
 
 #menu {
