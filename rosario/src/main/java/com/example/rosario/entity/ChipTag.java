@@ -19,11 +19,11 @@ public class ChipTag {
     @Column(nullable = false)
     private String label;
 
-    @OneToMany(mappedBy = "chipTag")
-    private Set<CustomerTag> customerTags;
-
-    @OneToMany(mappedBy = "chipTag")
-    private Set<ProductTag> productTags;
+//    @OneToMany(mappedBy = "chipTag")
+//    private Set<CustomerTag> customerTags;
+//
+//    @OneToMany(mappedBy = "chipTag")
+//    private Set<ProductTag> productTags;
     public ChipTag() {}
     public ChipTag(Long chipTagId) {
         this.chipTagId = chipTagId;

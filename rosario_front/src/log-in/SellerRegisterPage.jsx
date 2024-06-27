@@ -5,18 +5,17 @@ import { useNavigate } from "react-router-dom";
 function SellerRegisterPage() {
   const [seller, setSeller] = useState({
     sellerNm: "",
-    sellerBirthDt:"",
+    sellerBirthDt: "",
     sellerCno: "",
     sellerAdr: "",
-    sellerRgtDt:"",
+    sellerRgtDt: "",
     sellerEmailAdr: "",
     sellerPassword: "",
   });
 
   const [emailCheckMessage, setEmailCheckMessage] = useState("");
   const navigate = useNavigate();
-
-  const handleSellerChange  = (e) => {
+  const handleSellerChange = (e) => {
     const { name, value } = e.target;
     setSeller((prevState) => ({
       ...prevState,
@@ -46,13 +45,11 @@ function SellerRegisterPage() {
         `http://localhost:8081/api/sellers/check-email?email=${seller.sellerEmailAdr}`
       );
       if (response.data === true) {
-        setEmailCheckMessage("이미 사용 중인 이메일입니다. 다른 이메일을 입력해주세요.");
-      } else {
-        await axios.post(
-          "http://localhost:8081/api/sellers/register",
-          seller
+        setEmailCheckMessage(
+          "이미 사용 중인 이메일입니다. 다른 이메일을 입력해주세요."
         );
-        
+      } else {
+        await axios.post("http://localhost:8081/api/sellers/register", seller);
         console.log("회원 가입 성공:", response.data);
         // 회원 가입 성공 후 로그인 페이지로 이동
         navigate("/loginpage");

@@ -33,13 +33,14 @@ const SalesTerm = () => {
           style={{ width: 200 }}
         >
           <Option value="Daily">일별</Option>
-          {/* <Option value="quarterly">분기별</Option> */}
+
           <Option value="Monthly">월별</Option>
         </Select>
         {selectedPeriod === "Daily" && <DailySalesChart />}
-        {/* {selectedPeriod === "quarterly" && <QuarterlySalesChart />} */}
+
         {selectedPeriod === "Monthly" && <MonthlySalesChart />}
       </Card>
+
       <Card>
         <DailySalesTable />
       </Card>

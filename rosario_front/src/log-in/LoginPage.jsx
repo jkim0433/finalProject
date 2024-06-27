@@ -47,7 +47,7 @@ function LoginPage() {
         const roles = user.authorities.map((auth) => auth.authority);
         const emailAdr = user.username;
         const sellerId = user.sellerId;
-        const customerId = user.customerId;
+        const costomerId = user.customerId;
         console.log("로그인 성공 사용자 이메일:", emailAdr);
         console.log("로그인 성공 사용자 ID,S/C:", sellerId, "/", customerId);
         // JWT 토큰과 사용자 정보를 로컬 스토리지에 저장
@@ -58,19 +58,8 @@ function LoginPage() {
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("roles", JSON.stringify(roles)); // 권한을 로컬 스토리지에 저장
 
-        // 첩태그 데이터 조회 API 호출
-        const chipTagsResponse = await fetch(
-          `http://localhost:8081/api/customers/${customerId}/chipTags`
-        );
-        const chipTagsData = await chipTagsResponse.json();
-
-        // 첩태그 데이터가 비어있을 경우 "/chipTag" 페이지로 이동
-        if (chipTagsData.length === 0) {
-          navigate("/chipTag");
-        } else {
-          // 그 외의 경우 메인 페이지로 이동
-          navigate("/");
-        }
+        // 로그인 성공 후 홈 페이지로 이동
+        navigate("/");
       } else {
         throw new Error("로그인 오류: 서버에서 올바른 응답을 받지 못했습니다.");
       }

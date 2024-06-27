@@ -111,7 +111,7 @@ const Sellernav = () => {
                 [styles.logonameLight]: theme === "light",
               })}
             >
-              ROSARIO
+              <a href="">ROSARIO</a>
             </div>
           </div>
 
