@@ -1,37 +1,34 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import GallerySecond from "../selleredit/GellarySecond";
 
-const Gallery = ({ productId }) => {
+const Gallery = () => {
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
-    const fetchProductImages = async () => {
+    const fetchPhotos = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8081/api/uploadProdImg/${productId}`
-        );
-        if (Array.isArray(response.data)) {
-          setPhotos(response.data);
-        } else {
-          console.error("Invalid data format from API");
+        const sellerId = 1; // 실제 사용할 sellerId로 변경
+        const response = await fetch(`http://localhost:8081/api/sellers/${sellerId}/images`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch photos");
         }
+        const data = await response.json();
+        console.log("API Response:", data); // 응답 데이터 확인
+        setPhotos(data.map(img => `http://localhost:8081/api/sellers/${sellerId}/images${img.imageUrl}`));
       } catch (error) {
-        console.error("Error fetching product images:", error);
+        console.error("Error fetching photos:", error);
       }
     };
-
-    fetchProductImages();
-  }, [productId]);
+  
+    fetchPhotos();
+  }, []);
 
   return (
     <div>
       <h2>Product Gallery</h2>
-      <GallerySecond photos={photos.map((img) => img.prodFilePath)} />
+      <GallerySecond photos={photos} />
     </div>
   );
 };
 
 export default Gallery;
-
-// 수정확인
