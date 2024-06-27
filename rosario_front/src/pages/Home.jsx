@@ -56,9 +56,16 @@ const Home = () => {
             </button>
           </div>
           <p className="mt-4 text-sm text-neutral-600 leading-6 col-start-1 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
-            We are dedicated to delivering the beauty and emotion of flowers toyour doorstep. One-Time Orders: Easily order for special occasionsor to express your sentiments. Subscription Orders: Want to receive
-            a new bouquet every month? Subscribe to our service and keep the special gifts coming. <br /><br />
-            <span className="font-semibold">Experience the Extraordinary</span> <br />
+            We are dedicated to delivering the beauty and emotion of flowers
+            toyour doorstep. One-Time Orders: Easily order for special
+            occasionsor to express your sentiments. Subscription Orders: Want to
+            receive a new bouquet every month? Subscribe to our service and keep
+            the special gifts coming. <br />
+            <br />
+            <span className="font-semibold">
+              Experience the Extraordinary
+            </span>{" "}
+            <br />
             We strive to make your special moments even more exceptional.
             Experience beautiful bouquets and unforgettable moments with our
             service!{" "}
@@ -66,18 +73,15 @@ const Home = () => {
         </div>
 
         <div className="gallery mt-20">
-              <Gallery />
+          <Gallery />
         </div>
-
-
-
       </main>
-        <div className="shop_list">
-          <ShopList />
-        </div>
-        <div className="footer">
-            <Footer />
-        </div>
+      <div className="shop_list">
+        <ShopList />
+      </div>
+      <div className="footer">
+        <Footer />
+      </div>
     </div>
   );
 };

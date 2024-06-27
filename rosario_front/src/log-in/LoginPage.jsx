@@ -51,7 +51,7 @@ function LoginPage() {
 
         const emailAdr = user.username;
         const sellerId = user.sellerId;
-        const costomerId = user.costomerId;
+        const costomerId = user.customerId;
         console.log("로그인 성공 사용자 이메일:", emailAdr);
         console.log("로그인 성공 사용자 ID,S/C:", sellerId, "/", costomerId);
 
@@ -62,7 +62,7 @@ function LoginPage() {
         localStorage.setItem("costomerId", costomerId);
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("roles", JSON.stringify(roles)); // 권한을 로컬 스토리지에 저장
-        
+
         // 로그인 성공 후 홈 페이지로 이동
         navigate("/");
       } else {
