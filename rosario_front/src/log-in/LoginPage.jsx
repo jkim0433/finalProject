@@ -47,7 +47,7 @@ function LoginPage() {
         const roles = user.authorities.map((auth) => auth.authority);
         const emailAdr = user.username;
         const sellerId = user.sellerId;
-        const costomerId = user.customerId;
+        const customerId = user.customerId;
         console.log("로그인 성공 사용자 이메일:", emailAdr);
         console.log("로그인 성공 사용자 ID,S/C:", sellerId, "/", customerId);
         // JWT 토큰과 사용자 정보를 로컬 스토리지에 저장
