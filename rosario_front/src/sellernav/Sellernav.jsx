@@ -60,6 +60,11 @@ const Sellernav = () => {
     })),
   }));
 
+  //로고클릭시 홈이동
+  const handleLogoClick = () => {
+    navigate("/");
+  };
+
   return (
     <ConfigProvider
       theme={{
@@ -94,7 +99,7 @@ const Sellernav = () => {
           theme={theme}
           className={styles.sidebar}
         >
-          <div className={styles.logo}>
+          <div className={styles.logo} onClick={handleLogoClick}>
             <img
               src="/src/img/logo.jpg"
               alt="ROSARIO Logo"
@@ -111,7 +116,7 @@ const Sellernav = () => {
                 [styles.logonameLight]: theme === "light",
               })}
             >
-              <a href="">ROSARIO</a>
+              ROSARIO
             </div>
           </div>
 
