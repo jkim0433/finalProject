@@ -159,7 +159,7 @@ const SellerCalendar = () => {
     }));
     const defaultEvents = getDefaultListData(value);
 
-    return [...defaultEvents, ...holidayEvents];
+    return defaultEvents;
 
     // return filteredHolidays.map((holiday) => ({
     //   type: "holiday",
@@ -184,7 +184,14 @@ const SellerCalendar = () => {
     if (isSelected) cellClass += ` ${styles.selectedCell}`;
 
     //공휴일필터링
-    const holidayEvents = listData.filter((item) => item.type === "holiday");
+    const dateString = value.format("YYYYMMDD");
+    const filteredHolidays = holidays.filter(
+      (holiday) => holiday.locdate === parseInt(dateString)
+    );
+    const holidayEvents = filteredHolidays.map((holiday) => ({
+      type: "holiday",
+      content: holiday.dateName,
+    }));
     const isHoliday = holidayEvents.length > 0;
 
     //토일 글자색 지정

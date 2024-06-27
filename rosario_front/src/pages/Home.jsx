@@ -6,9 +6,10 @@ import image1 from "../img/image1.png";
 import image2 from "../img/image1.png";
 import image3 from "../img/image1.png";
 import image4 from "../img/image5.png";
-import Gallery from "../shop/Gallery";
+
 import ShopList from "../shop/ShopList";
 import Footer from "../components/Footer";
+import Gallery from "../shop/gallery";
 
 const Home = () => {
   return (
