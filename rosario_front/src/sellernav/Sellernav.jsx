@@ -19,8 +19,7 @@ import Dashboard from "./Dashboard";
 import Subscription from "../sellersubscription/Subscription";
 import SellerSubOrders from "../sellerorders/SellerSubOrders";
 import SellerGenOrders from "../sellerorders/SellerGenOrders";
-import Term from "../sellersales/Term";
-import Type from "../sellersales/Type";
+import SalesTerm from "../sellersales/SalesTerm";
 import Catalog from "../selleredit/Catalog";
 import Profile from "../selleredit/Profile";
 import Product from "../selleredit/Product";
@@ -161,8 +160,8 @@ const Sellernav = () => {
               <Route path="edit/catalog" element={<Catalog />} />
               <Route path="edit/profile" element={<Profile />} />
               <Route path="edit/product" element={<Product />} />
-              <Route path="sales/term" element={<Term />} />
-              <Route path="sales/type" element={<Type />} />
+              <Route path="sales/term" element={<SalesTerm />} />
+              {/* <Route path="sales/type" element={<Type />} /> */}
               <Route path="orders/suborders" element={<SellerSubOrders />} />
               <Route path="orders/genorders" element={<SellerGenOrders />} />
               <Route path="subscription" element={<Subscription />} />

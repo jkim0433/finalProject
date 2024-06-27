@@ -3,8 +3,8 @@ import { AiFillGithub, AiFillLinkedin, AiOutlineMail } from "react-icons/ai";
 
 const Footer = () => {
   return (
-    <footer className="mt-2 bg-white text-gray-900 py-4">
-      <div className="container mx-auto px-4 flex items-center justify-between">
+    <footer className="px-6 mt-2 bg-white text-gray-900 py-4">
+      <div className="mx-auto px-4 flex items-center justify-between">
         <div className="text-sm ">
           CopyRight &copy; 2024 Rosario, All rights reserved.
         </div>
