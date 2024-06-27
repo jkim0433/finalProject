@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 
@@ -7,7 +7,8 @@ function LoginPage() {
     email: "",
     password: "",
   });
-  const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,37 +30,31 @@ function LoginPage() {
         body: JSON.stringify(credentials),
       });
 
-      // HTTP 상태 코드 확인
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       console.log("123");
-
       // 서버로부터 JSON 형식의 응답을 받음
       const data = await response.json();
       console.log("456");
-
       // 받은 데이터의 유효성 검사 및 처리
       if (data && data.token) {
-        console.log("로그인 성공!");
-        console.log("사용자 정보:", data.user);
+        // JWT 토큰과 사용자 정보를 로컬 스토리지에 저장
+        console.log("로그인 성공 사용자 정보:", data.user);
         console.log("JWT 토큰:", data.token);
-
         const user = data.user;
         // 사용자 정보에서 권한을 추출
         const roles = user.authorities.map((auth) => auth.authority);
-
         const emailAdr = user.username;
         const sellerId = user.sellerId;
         const costomerId = user.customerId;
         console.log("로그인 성공 사용자 이메일:", emailAdr);
-        console.log("로그인 성공 사용자 ID,S/C:", sellerId, "/", costomerId);
-
+        console.log("로그인 성공 사용자 ID,S/C:", sellerId, "/", customerId);
         // JWT 토큰과 사용자 정보를 로컬 스토리지에 저장
         localStorage.setItem("token", data.token);
         localStorage.setItem("emlAdr", emailAdr);
         localStorage.setItem("sellerId", sellerId);
-        localStorage.setItem("costomerId", costomerId);
+        localStorage.setItem("customerId", customerId);
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("roles", JSON.stringify(roles)); // 권한을 로컬 스토리지에 저장
 
@@ -72,48 +67,6 @@ function LoginPage() {
       console.error("로그인 오류:", error);
     }
   };
-  // const handleLogin = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     const response = await fetch("http://localhost:8081/perform_login", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify(credentials)
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`);
-  //     }
-  //     // 로그인 성공 후 홈 페이지로 이동
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.error("로그인 오류:", error);
-  //   }
-  // };
-
-  // const handleLogin = async (event) => {
-  //   event.preventDefault();
-
-  //   try {
-  //     const response = await fetch("http://localhost:8081/perform_login", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify(credentials)
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`);
-  //     }
-
-  //     // 로그인 성공 후 홈 페이지로 이동
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.error("로그인 오류:", error);
-  //   }
-  // };
 
   return (
     <div className="h-screen items-center flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">

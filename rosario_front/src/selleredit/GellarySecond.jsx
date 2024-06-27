@@ -1,6 +1,7 @@
 import React from "react";
 
 const GallerySecond = ({ photos }) => {
+
   return (
     <div className="max-w-4xl mx-auto grid grid-flow-col grid-rows-2 grid-cols-3 gap-4">
       <div className="position-a border-dashed border-red-500 border-2 relative">

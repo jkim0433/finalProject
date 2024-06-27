@@ -1,26 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import GallerySecond from '../selleredit/GellarySecond';
+import React, { useState, useEffect } from "react";
+import GallerySecond from "../selleredit/GellarySecond";
 
-const Gallery = ({ productId }) => {
+const Gallery = () => {
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
-    const fetchProductImages = async () => {
+    const fetchPhotos = async () => {
       try {
-        const response = await axios.get(`http://localhost:8081/api/uploadProdImg/${productId}`);
-        if (Array.isArray(response.data)) {
-          setPhotos(response.data);
-        } else {
-          console.error('Invalid data format from API');
+        const sellerId = 1; // 실제 사용할 sellerId로 변경
+        const response = await fetch(`http://localhost:8081/api/sellers/${sellerId}/images`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch photos");
         }
+        const data = await response.json();
+        console.log("API Response:", data); // 응답 데이터 확인
+        setPhotos(data.map(img => `http://localhost:8081/api/sellers/${sellerId}/images${img.imageUrl}`));
       } catch (error) {
-        console.error('Error fetching product images:', error);
+        console.error("Error fetching photos:", error);
       }
     };
-
-    fetchProductImages();
-  }, [productId]);
+  
+    fetchPhotos();
+  }, []);
 
 import React from "react";
 import image5 from "../img/image3.png";
@@ -31,22 +32,9 @@ import image9 from "../img/image2.png";
 
 const Gallery = () => {
   return (
-    <div className="mb-5 max-w-4xl mx-auto grid grid-flow-col grid-rows-2 grid-cols-3 gap-6">
-      <div>
-        <img src={image5} alt="" loading="lazy" className="w-full h-60 object-cover rounded-lg hover:scale-110 transition-transform duration-300 ease-in-out" />
-      </div>
-      <div className="col-start-3">
-        <img src={image6} alt="" loading="lazy" className="w-full h-60 object-cover rounded-lg hover:scale-110 transition-transform duration-300 ease-in-out"/>
-      </div>
-      <div>
-        <img src={image7} alt="" loading="lazy" className="w-full h-60 object-cover rounded-lg hover:scale-110 transition-transform duration-300 ease-in-out" />
-      </div>
-      <div>
-        <img src={image8} alt="" loading="lazy" className="w-full h-60 object-cover rounded-lg hover:scale-110 transition-transform duration-300 ease-in-out" />
-      </div>
-      <div className="row-start-1 col-start-2 col-span-2">
-        <img src={image9} alt="" loading="lazy" className="w-full h-60 object-cover rounded-lg hover:scale-110 transition-transform duration-300 ease-in-out" />
-      </div>
+    <div>
+      <h2>Product Gallery</h2>
+      <GallerySecond photos={photos.map(img => img.prodFilePath)} />
     </div>
   );
 };
