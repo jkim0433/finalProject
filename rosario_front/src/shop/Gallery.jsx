@@ -23,18 +23,10 @@ const Gallery = () => {
     fetchPhotos();
   }, []);
 
-import React from "react";
-import image5 from "../img/image3.png";
-import image6 from "../img/image4.png";
-import image7 from "../img/image8.png";
-import image8 from "../img/image6.png";
-import image9 from "../img/image2.png";
-
-const Gallery = () => {
   return (
     <div>
       <h2>Product Gallery</h2>
-      <GallerySecond photos={photos.map(img => img.prodFilePath)} />
+      <GallerySecond photos={photos} />
     </div>
   );
 };

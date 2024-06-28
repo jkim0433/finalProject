@@ -9,7 +9,8 @@ import image4 from "../img/image5.png";
 
 import ShopList from "../shop/ShopList";
 import Footer from "../components/Footer";
-import Gallery from "../shop/gallery";
+import Gallery from "../shop/Gallery";
+
 
 const Home = () => {
   return (
