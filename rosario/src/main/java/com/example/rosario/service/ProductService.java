@@ -4,9 +4,11 @@ import com.example.rosario.dto.ProductDetailDto;
 import com.example.rosario.entity.Product;
 import com.example.rosario.entity.ProductImg;
 import com.example.rosario.entity.ProductSeller;
+import com.example.rosario.entity.Seller;
 import com.example.rosario.repository.ProductImgRepository;
 import com.example.rosario.repository.ProductRepository;
 import com.example.rosario.repository.ProductSellerRepository;
+import com.example.rosario.repository.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +25,23 @@ public class ProductService {
 
     @Autowired
     private ProductSellerRepository productSellerRepository;
+
+    @Autowired
+    private SellerRepository sellerRepository;
     @Autowired
     private ProductImgRepository productImgRepository;
-    public Product saveProduct(Product product) {
-        return productRepository.save(product);
+    public Product saveProduct(Product product, Long sellerId) {
+        Product savedProduct = productRepository.save(product);
+        Optional<Seller> sellerOpt = sellerRepository.findById(sellerId);
+        if (sellerOpt.isPresent()) {
+            ProductSeller productSeller = new ProductSeller();
+            productSeller.setProduct(savedProduct);
+            productSeller.setSeller(sellerOpt.get());
+            productSellerRepository.save(productSeller);
+        } else {
+            throw new RuntimeException("Seller not found with id: " + sellerId);
+        }
+        return savedProduct;
     }
 
     public List<Product> getProductsBySellerId(Long sellerId) {

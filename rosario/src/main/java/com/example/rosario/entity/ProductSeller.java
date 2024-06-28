@@ -1,5 +1,6 @@
 package com.example.rosario.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "product_seller")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class ProductSeller {
 
     @Id
