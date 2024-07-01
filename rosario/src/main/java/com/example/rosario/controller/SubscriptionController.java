@@ -1,5 +1,7 @@
 package com.example.rosario.controller;
 import com.example.rosario.dto.OrdersDto;
+import com.example.rosario.dto.SubscriptionDto;
+import com.example.rosario.entity.Subscription;
 import com.example.rosario.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +14,13 @@ import java.util.List;
 
 // 구독과 관련된 %, 리스트 관련 controller
 @RestController
-@RequestMapping("/rosario/admin/sales")
+@RequestMapping("/rosario/admin")
 public class SubscriptionController {
 
     @Autowired
     private SubscriptionService subscriptionService;
 
-    @GetMapping("/type/monthly/{year}/{month}")
+    @GetMapping("/sales/type/monthly/{year}/{month}")
     public ResponseEntity<MonthlyChartData> getMonthlyChart(@PathVariable("year") int year, @PathVariable("month") int month) {
         MonthlyChartData chartData = new MonthlyChartData();
 
@@ -44,4 +46,21 @@ public class SubscriptionController {
 
 
     // 분기, 연도별 차트에 대한 API도 유사하게 구현 가능
+
+    // 구독자 리스트 조회
+    @GetMapping("/subscriptions")
+    public ResponseEntity<List<SubscriptionDto>>getSubscriptionList(){
+        List<SubscriptionDto> subscriptionList = subscriptionService.getSubscriptionList();
+                return ResponseEntity.ok(subscriptionList);
+    }
+
+
+    // SellerId를 기준으로 구독자 리스트 조회
+    @GetMapping("/subscriptions/{sellerId}")
+    public ResponseEntity<List<SubscriptionDto>>getSubscriptionListBySellerId(@PathVariable("sellerId") Long sellerId) {
+       List<SubscriptionDto>subscriptionList = subscriptionService.getSubscriptionListBySellerId(sellerId);
+        return ResponseEntity.ok(subscriptionList);
+        //HTTP 상태 코드 200(OK)를 클라이언트에게 반환
+    }
+
 }

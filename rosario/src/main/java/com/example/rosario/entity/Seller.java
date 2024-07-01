@@ -1,5 +1,6 @@
 package com.example.rosario.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +14,7 @@ import java.util.Set;
 @Table(name = "seller")
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Seller {
 
     @Id
@@ -32,8 +34,11 @@ public class Seller {
     @Column(nullable = false)
     private String sellerAdr;          // 판매자주소
 
+//    @Column(nullable = false)
+//    private Long sellerRgtDt;          // 사업자등록번호
+
     @Column(nullable = false)
-    private Long sellerRgtDt;          // 사업자등록번호
+    private String sellerRgtDt;          // 사업자등록번호 (String으로 수정/ 변경>?)
 
     @Column(nullable = false)
     private String sellerEmailAdr;     // 판매자이메일주소

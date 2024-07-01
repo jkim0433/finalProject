@@ -17,9 +17,9 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("/register")
-    public ResponseEntity<Product> registerProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> registerProduct(@RequestBody Product product, @RequestParam("sellerId") String sellerId) {
         try {
-            Product savedProduct = productService.saveProduct(product);
+            Product savedProduct = productService.saveProduct(product, Long.parseLong(sellerId));
             return ResponseEntity.ok(savedProduct);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(null);

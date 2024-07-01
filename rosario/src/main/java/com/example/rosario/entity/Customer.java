@@ -15,7 +15,10 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
-    private String customerNm;
+    
+    @Column(name = "customer_nm")
+    private String customerNm;  // 도혜 추가(6/30)
+    
     private Date customerBirthDt;
     //private Long customerCno;  기존 설정
 
@@ -31,6 +34,11 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private Set<CustomerTag> customerTags;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Subscription> subscriptions;
+    // 구독 정보와의 관계 추가(도혜추가 6/30)
+
     public Customer() {}
     public Customer(Long customerId) {
         this.customerId = customerId;
