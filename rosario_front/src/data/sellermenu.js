@@ -27,10 +27,6 @@
       key: "/admin/orders",
       icon: "CalendarOutlined",
       label: "Orders",
-      children: [
-        { key: "/admin/orders/suborders", label: "Sub Orders" },
-        { key: "/admin/orders/genorders", label: "Gen Orders" },
-      ],
     },
     {
       key: "/admin/subscription",
