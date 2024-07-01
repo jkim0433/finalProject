@@ -1,5 +1,6 @@
 package com.example.rosario.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,10 +13,12 @@ public class CustomerTag {
     private Long customTagId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "customerId" ,nullable = false)
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "chipTagId" ,nullable = false)
     private ChipTag chipTag;
 }
