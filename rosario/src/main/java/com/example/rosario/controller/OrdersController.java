@@ -35,7 +35,6 @@ public class OrdersController {
     public Long getQuarterlySales(@PathVariable("year") int year, @PathVariable("quarter") int quarter) {
 //        System.out.println("Year: " + year);
 //        System.out.println("Quarter: " + quarter);
-
         return ordersService.getQuarterlySales(year, quarter);
 //        System.out.println("Quarterly Sales: " + sales);
 //        return sales;
@@ -45,7 +44,6 @@ public class OrdersController {
     @GetMapping("/term/yearly/{year}")
     public Long getYearlySales(@PathVariable("year") int year) {
         System.out.println("Year: " + year);
-
         return ordersService.getYearlySales(year);
 //        System.out.println("Yearly Sales: " + sales);
 //        return sales;
