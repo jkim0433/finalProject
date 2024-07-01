@@ -1,5 +1,6 @@
 package com.example.rosario.controller;
 
+import com.example.rosario.dto.DeliveryDto;
 import com.example.rosario.entity.Delivery;
 import com.example.rosario.service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class DeliveryController {
     private DeliveryService deliveryService;
 
     @GetMapping
-    public List<Delivery> getAllDeliveries(){
+    public List<DeliveryDto> getAllDeliveries(){
         return deliveryService.getAllDeliveries();
     }
 

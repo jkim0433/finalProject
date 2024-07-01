@@ -1,8 +1,6 @@
 package com.example.rosario.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
@@ -22,5 +20,9 @@ public class DeliveryDto {
     private Date deliveryRqDt;     // 배송 요청 날짜
     private Date deliveryCpDt;     // 배송 완료 날짜
     private String deliveryState;  // 배달 상태
+
+    //0701추가
+    private String customerNm; //고객이름
+    private String ordersDescription; //주문서
 
 }
