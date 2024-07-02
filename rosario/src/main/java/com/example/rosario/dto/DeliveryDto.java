@@ -1,5 +1,6 @@
 package com.example.rosario.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.util.Date;
@@ -17,7 +18,10 @@ public class DeliveryDto {
     private Long deliveryCount;    // 배송 횟수
     private Long deliveryPrice;    // 배송비
     private String deliveryType;   // 배송 방법 (픽업, 배송)
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private Date deliveryRqDt;     // 배송 요청 날짜
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private Date deliveryCpDt;     // 배송 완료 날짜
     private String deliveryState;  // 배달 상태
 
