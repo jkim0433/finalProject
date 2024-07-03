@@ -25,7 +25,7 @@ public class SellerController {
         this.sellerImgService = sellerImgService;
     }
 
-    @GetMapping
+    @GetMapping("/shopList")
     public List<Seller> getAllSellers() {
         // 전체 판매자(가게) 조회
         return sellerService.getAllSellers();

@@ -14,8 +14,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "product")
-@Getter
-@Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Product {
 
