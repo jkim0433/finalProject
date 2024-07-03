@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomerService {
     private final CustomerRepository customerRepository;
@@ -33,4 +35,22 @@ public class CustomerService {
     public boolean isEmailAlreadyRegistered(String email) {
         return customerRepository.existsByCustomerEmlAdr(email);
     }
+
+    // 마이페이지 필요 - 도혜 추가(07.30)
+    public CustomerDto getCustomerProfile(String email) {
+        Optional<Customer> customerPf = customerRepository.findByCustomerEmlAdr(email);
+        if (customerPf.isPresent()) {
+            Customer customer = customerPf.get();
+            CustomerDto customerDto = new CustomerDto();
+            customerDto.setCustomerNm(customer.getCustomerNm());
+            customerDto.setCustomerBirthDt(customer.getCustomerBirthDt());
+            customerDto.setCustomerCno(customer.getCustomerCno());
+            customerDto.setCustomerAdr(customer.getCustomerAdr());
+            customerDto.setCustomerEmlAdr(customer.getCustomerEmlAdr());
+            // 비밀번호는 보안상 포함하지 않습니다.
+            return customerDto;
+        }
+        return null;
+    }
+
 }

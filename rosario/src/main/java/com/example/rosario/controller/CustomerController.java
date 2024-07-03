@@ -29,4 +29,15 @@ public class CustomerController {
         boolean emailExists = customerService.isEmailAlreadyRegistered(email);
         return ResponseEntity.ok(emailExists);
     }
+
+    // 마이페이지 필요 - 도혜 추가(07.30)
+    @GetMapping("/profile")
+    public ResponseEntity<CustomerDto> getCustomerProfile(@RequestParam("email") String email) {
+        CustomerDto customerProfile = customerService.getCustomerProfile(email);
+        if (customerProfile != null) {
+            return ResponseEntity.ok(customerProfile);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
