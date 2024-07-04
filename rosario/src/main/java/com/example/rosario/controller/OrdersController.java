@@ -4,13 +4,14 @@ import com.example.rosario.dto.OrdersDto;
 import com.example.rosario.entity.Orders;
 import com.example.rosario.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 // 매출조회 controller
 @RestController
-@RequestMapping("/rosario/admin/sales")
+@RequestMapping("/api/orders")
 public class OrdersController {
     @Autowired
     private OrdersService ordersService;
@@ -54,7 +55,22 @@ public class OrdersController {
     public List<OrdersDto> getDailySalesDetails(@PathVariable("year") int year, @PathVariable("month") int month, @PathVariable("day") int day){
         return ordersService.getTodaySalesList(year,month,day);
     }
+
+//    @GetMapping
+//    public ResponseEntity<List<OrdersDto>> getAllOrders() {
+//        List<OrdersDto> ordersList = ordersService.getAllOrders();
+//        return ResponseEntity.ok(ordersList);
+//    }
+//
+//    @PostMapping
+//    public ResponseEntity<OrdersDto> createOrder(@RequestBody OrdersDto ordersDto) {
+//        OrdersDto savedOrder = ordersService.createOrder(ordersDto);
+//        return ResponseEntity.ok(savedOrder);
+//    }
+
 }
+
+
 
 
 //json-> requestbody

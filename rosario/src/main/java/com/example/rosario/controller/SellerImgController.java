@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// 판매자 upload 이미지
 @RestController
 @RequestMapping("/api/uploadSellerImg")
 @CrossOrigin(origins = "http://localhost:5173")

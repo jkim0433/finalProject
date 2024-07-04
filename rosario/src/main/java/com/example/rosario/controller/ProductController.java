@@ -26,6 +26,7 @@ public class ProductController {
         }
     }
 
+    // 판매자별 상품조회
     @GetMapping("/seller/{sellerId}")
     public ResponseEntity<List<Product>> getProductsBySellerId(@PathVariable("sellerId") String sellerId) {
         List<Product> products = productService.getProductsBySellerId(Long.parseLong(sellerId));
