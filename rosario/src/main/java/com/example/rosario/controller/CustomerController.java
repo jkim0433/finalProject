@@ -32,8 +32,8 @@ public class CustomerController {
 
     // 마이페이지 필요 - 도혜 추가(07.30)
     @GetMapping("/profile")
-    public ResponseEntity<CustomerDto> getCustomerProfile(@RequestParam("email") String email) {
-        CustomerDto customerProfile = customerService.getCustomerProfile(email);
+    public ResponseEntity<CustomerDto> getCustomerProfile(@RequestParam("customerEmlAdr") String customerEmlAdr) {
+        CustomerDto customerProfile = customerService.getCustomerProfile(customerEmlAdr);
         if (customerProfile != null) {
             return ResponseEntity.ok(customerProfile);
         } else {

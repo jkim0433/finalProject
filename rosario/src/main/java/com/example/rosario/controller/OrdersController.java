@@ -3,6 +3,7 @@ package com.example.rosario.controller;
 import com.example.rosario.dto.OrdersDto;
 import com.example.rosario.entity.Orders;
 import com.example.rosario.service.OrdersService;
+import com.example.rosario.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,17 +57,12 @@ public class OrdersController {
         return ordersService.getTodaySalesList(year,month,day);
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<OrdersDto>> getAllOrders() {
-//        List<OrdersDto> ordersList = ordersService.getAllOrders();
-//        return ResponseEntity.ok(ordersList);
-//    }
-//
-//    @PostMapping
-//    public ResponseEntity<OrdersDto> createOrder(@RequestBody OrdersDto ordersDto) {
-//        OrdersDto savedOrder = ordersService.createOrder(ordersDto);
-//        return ResponseEntity.ok(savedOrder);
-//    }
+    // 일반 주문서
+    @PostMapping("/create")
+    public ResponseEntity<Orders> createOrdersFromDTO(@RequestBody OrdersDto ordersDto) {
+        Orders createdOrders = ordersService.createOrdersFromDto(ordersDto);
+        return ResponseEntity.ok(createdOrders);
+    }
 
 }
 

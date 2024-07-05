@@ -1,10 +1,12 @@
 package com.example.rosario.service;
 
 import com.example.rosario.dto.OrdersDto;
-import com.example.rosario.repository.OrdersRepository;
+import com.example.rosario.entity.*;
+import com.example.rosario.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 // 매출 조회 관련 service
@@ -12,6 +14,16 @@ import java.util.List;
 public class OrdersService {
     @Autowired
     private OrdersRepository ordersRepository;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private SellerRepository sellerRepository;
+
+    @Autowired
+    private SubscriptionRepository subscriptionRepository;
 
     // 일별 매출 조회
     public Long getDailySales(int year, int month, int day) {
@@ -38,6 +50,38 @@ public class OrdersService {
         return ordersRepository.findDailySalesList(year, month, day);
     }
 
+    // 일반 주문서를 위한 Dto
+    // Product, Customer, Seller 객체를 데이터베이스에서 실제로 조회하여 사용하게 됩니다. 이는 데이터의 일관성을 유지하는 데 도움이 되며,
+    // 존재하지 않는 ID를 사용하려고 할 때 오류를 발생시켜 잘못된 데이터 입력을 방지
+    public Orders createOrdersFromDto(OrdersDto ordersDto) {
+        Orders orders = new Orders();
+        Product product = productRepository.findById(ordersDto.getProductId())
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+        orders.setProduct(product);
+
+        Customer customer = customerRepository.findById(ordersDto.getCustomerId())
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+        orders.setCustomer(customer);
+
+        // Seller 정보 가져오기
+        Seller seller = sellerRepository.findById(ordersDto.getSellerId())
+                .orElseThrow(() -> new RuntimeException("Seller not found for this product"));
+
+        // Seller 정보 사용 예시
+        String sellerName = seller.getSellerNm();
+
+        // 사용하니 OrdersDescription 뽑아져나옴
+        orders.setOrdersDescription(ordersDto.getOrdersDescription()); // ordersDescription 설정
+        
+        orders.setOrdersEA(ordersDto.getOrdersEA());
+        orders.setOrdersAdr(ordersDto.getOrdersAdr());
+        orders.setOrdersDate(new Date());
+
+        // 여기에서 totalNum을 설정해주어야 함
+        orders.setTotalNum(ordersDto.getTotalNum());
+
+        return ordersRepository.save(orders);
+    }
 }
 //    // 월별 매출 조회
 //    public Long getMonthlySales(int year, int month){
