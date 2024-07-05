@@ -1,9 +1,12 @@
 package com.example.rosario.controller;
 
 import com.example.rosario.dto.ProductDetailDto;
+import com.example.rosario.dto.ProductDto;
 import com.example.rosario.entity.Product;
+import com.example.rosario.entity.ProductSeller;
 import com.example.rosario.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,12 +35,17 @@ public class ProductController {
         List<Product> products = productService.getProductsBySellerId(Long.parseLong(sellerId));
         return ResponseEntity.ok(products);
     }
-
-    @GetMapping("/{productId}")
-    public ResponseEntity<ProductDetailDto> getProductDetail(@PathVariable("productId") String productId) {
-        ProductDetailDto productDetailDto = productService.getProductDetail(Long.parseLong(productId));
-        return ResponseEntity.ok(productDetailDto);
+    // 상품별 판매자조회
+    @GetMapping("/withseller/{productId}")
+    public ResponseEntity<List<ProductSeller>> getSellersByProductId(@PathVariable("productId") String productId) {
+        List<ProductSeller> productSellers = productService.getSellersByProductId(Long.parseLong(productId));
+        return ResponseEntity.ok(productSellers);
     }
 
+    @GetMapping("/{productId}")
+    public ResponseEntity<ProductDetailDto> getProductDetail(@PathVariable("productId") Long productId) {
+        ProductDetailDto productDetailDto = productService.getProductDetail(productId);
+        return ResponseEntity.ok(productDetailDto);
+    }
 
 }

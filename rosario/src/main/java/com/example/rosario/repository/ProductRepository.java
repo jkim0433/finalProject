@@ -1,8 +1,12 @@
 package com.example.rosario.repository;
 
+import com.example.rosario.dto.ProductDetailDto;
+import com.example.rosario.dto.ProductDto;
 import com.example.rosario.entity.Product;
 import com.example.rosario.entity.ProductImg;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

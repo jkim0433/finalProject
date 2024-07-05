@@ -1,6 +1,7 @@
 package com.example.rosario.service;
 
 import com.example.rosario.dto.ProductDetailDto;
+import com.example.rosario.dto.ProductDto;
 import com.example.rosario.entity.Product;
 import com.example.rosario.entity.ProductImg;
 import com.example.rosario.entity.ProductSeller;
@@ -55,7 +56,17 @@ public class ProductService {
         return productRepository.findByProductIdIn(productIds);
     }
 
-
+    public List<ProductSeller> getSellersByProductId(Long productId) {
+        // SellerID로 상품 판매자 목록 조회하기
+        List<ProductSeller> productSellers = productSellerRepository.findByProduct_ProductId(productId);
+        // 판매자의 상품 ID 목록 추출하기
+//        List<Long> productIds = productSellers.stream()
+//                .map(productSeller -> productSeller.getProduct().getProductId())
+//                .collect(Collectors.toList());
+        // 상품 ID 목록으로 상품 조회하기
+//        return productRepository.findByProductIdIn(productIds);
+        return productSellers;
+    }
     public ProductDetailDto getProductDetail(Long productId) {
         Optional<Product> productOpt = productRepository.findById(productId);
         if (productOpt.isPresent()) {

@@ -2,6 +2,7 @@ package com.example.rosario.dto;
 
 import com.example.rosario.entity.ProductImg;
 
+
 import java.util.Set;
 
 public class ProductDetailDto {
@@ -11,6 +12,10 @@ public class ProductDetailDto {
     private Long productStock;
     private String productSize;
     private Set<ProductImg> productImages;
+
+    //0704 도경추가
+    private String sellerNm;        //판매자이름
+
 
     // Getters and Setters
     public Long getProductId() {
