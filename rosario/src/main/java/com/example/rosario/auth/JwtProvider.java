@@ -23,9 +23,9 @@ public class JwtProvider {
     private final InMemoryUserDetailsManager inMemoryUserDetailsManager;
     @Value("${jwt.secret:your-very-long-secret-key-that-is-at-least-64-bytes-long-0123456789abcdef0123456789abcdef}")
     private String secret;
-    @Value("${jwt.expiration:30000}") //1시간:3600000, 30초:30000
+    @Value("${jwt.expiration:600000}") //1시간:3600000, 30초:30000
     private long expiration;
-    @Value("${jwt.refreshExpiration:60000}") //1시간:3600000, 30초:30000
+    @Value("${jwt.refreshExpiration:3600000}") //1시간:3600000, 30초:30000
     private long refreshExpiration;
     private SecretKey secretKey;
 
