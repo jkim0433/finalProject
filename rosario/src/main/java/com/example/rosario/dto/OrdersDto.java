@@ -19,11 +19,16 @@ public class OrdersDto {
     private Long customerId;
     private Long productId;
 
+    // 추가된 getTotalNum() 메서드
+    public Long getTotalNum() {
+        return totalNum != null ? totalNum : 1L; // totalNum이 null일 경우 기본값으로 0을 반환
+    }
+
     // 아래(도혜 추가 -구독자와 비구독자를 알기 위한 dto)
     private String customerNm;
     private Date ordersDate;
     private Long totalAmount;
-
+    private String customerEmlAdr;
     private String subscriptionType; // 구독/일반을 문자열로 저장할 필드
     private Long sellerId;  // 추가된 필드
     //구독자와 비구독자를 알기 위한 dto

@@ -53,35 +53,51 @@ public class OrdersService {
     // 일반 주문서를 위한 Dto
     // Product, Customer, Seller 객체를 데이터베이스에서 실제로 조회하여 사용하게 됩니다. 이는 데이터의 일관성을 유지하는 데 도움이 되며,
     // 존재하지 않는 ID를 사용하려고 할 때 오류를 발생시켜 잘못된 데이터 입력을 방지
-    public Orders createOrdersFromDto(OrdersDto ordersDto) {
+    public Orders createOrdersFromDto(Long customerId,OrdersDto ordersDto) {
         Orders orders = new Orders();
+
+        // product설정
         Product product = productRepository.findById(ordersDto.getProductId())
                 .orElseThrow(() -> new RuntimeException("Product not found"));
         orders.setProduct(product);
 
-        Customer customer = customerRepository.findById(ordersDto.getCustomerId())
+        // customer 설정
+        Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
         orders.setCustomer(customer);
 
-        // Seller 정보 가져오기
-        Seller seller = sellerRepository.findById(ordersDto.getSellerId())
-                .orElseThrow(() -> new RuntimeException("Seller not found for this product"));
 
-        // Seller 정보 사용 예시
-        String sellerName = seller.getSellerNm();
+        // Seller 설정
+//    Seller seller = sellerRepository.findById(ordersDto.getSellerId())
+//            .orElseThrow(() -> new RuntimeException("Seller not found for this product"));
+// //   orders.setSeller(seller);
 
-        // 사용하니 OrdersDescription 뽑아져나옴
+        // 0 OrdersDescription 뽑아져나옴
         orders.setOrdersDescription(ordersDto.getOrdersDescription()); // ordersDescription 설정
-        
+
         orders.setOrdersEA(ordersDto.getOrdersEA());
         orders.setOrdersAdr(ordersDto.getOrdersAdr());
         orders.setOrdersDate(new Date());
 
-        // 여기에서 totalNum을 설정해주어야 함
-        orders.setTotalNum(ordersDto.getTotalNum());
+        // totalNum 설정 (구독일 경우 해당 값으로 설정)
+        if (ordersDto.getTotalNum() >= 2) {
+            orders.setTotalNum(ordersDto.getTotalNum()); // 구독 기간 설정
+        } else {
+            orders.setTotalNum(1L); // 단일 주문
+        }
 
+        // 구독 시작일은 주문일로 설정
+        orders.setOrdersDate(new Date());
+
+//        // 남은 구독 횟수 설정 (구독일 경우만)
+//        if (ordersDto.getTotalNum() >= 2) {
+//            orders.setRemainingSubscriptionCount(ordersDto.getTotalNum() - 1); // 처음 주문은 제외
+//        }
         return ordersRepository.save(orders);
     }
+
+
+
 }
 //    // 월별 매출 조회
 //    public Long getMonthlySales(int year, int month){

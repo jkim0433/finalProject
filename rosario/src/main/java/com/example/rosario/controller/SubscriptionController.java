@@ -14,13 +14,13 @@ import java.util.List;
 
 // 구독과 관련된 %, 리스트 관련 controller
 @RestController
-@RequestMapping("/rosario/admin")
+@RequestMapping("/api/subscribes")
 public class SubscriptionController {
 
     @Autowired
     private SubscriptionService subscriptionService;
 
-    @GetMapping("/sales/type/monthly/{year}/{month}")
+    @GetMapping("/type/monthly/{year}/{month}")
     public ResponseEntity<MonthlyChartData> getMonthlyChart(@PathVariable("year") int year, @PathVariable("month") int month) {
         MonthlyChartData chartData = new MonthlyChartData();
 

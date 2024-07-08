@@ -42,6 +42,7 @@ public class CustomerService {
         if (customerPf.isPresent()) {
             Customer customer = customerPf.get();
             CustomerDto customerDto = new CustomerDto();
+            customerDto.setCustomerId(customer.getCustomerId());
             customerDto.setCustomerNm(customer.getCustomerNm());
             customerDto.setCustomerBirthDt(customer.getCustomerBirthDt());
             customerDto.setCustomerCno(customer.getCustomerCno());
