@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 // 매출 조회 관련 service
 @Service
@@ -20,10 +21,10 @@ public class OrdersService {
     private CustomerRepository customerRepository;
 
     @Autowired
-    private SellerRepository sellerRepository;
+    private ProductSellerRepository productSellerRepository;
 
     @Autowired
-    private SubscriptionRepository subscriptionRepository;
+    private SellerRepository sellerRepository;
 
     // 일별 매출 조회
     public Long getDailySales(int year, int month, int day) {
@@ -68,9 +69,9 @@ public class OrdersService {
 
 
         // Seller 설정
-//    Seller seller = sellerRepository.findById(ordersDto.getSellerId())
-//            .orElseThrow(() -> new RuntimeException("Seller not found for this product"));
-// //   orders.setSeller(seller);
+        Seller seller = sellerRepository.findById(ordersDto.getSellerId())  //0710 도혜추가
+                .orElseThrow(() -> new RuntimeException("Seller not found for this product"));
+        orders.setSeller(seller);
 
         // 0 OrdersDescription 뽑아져나옴
         orders.setOrdersDescription(ordersDto.getOrdersDescription()); // ordersDescription 설정

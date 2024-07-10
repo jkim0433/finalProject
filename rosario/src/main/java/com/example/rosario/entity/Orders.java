@@ -44,5 +44,8 @@ public class Orders {
     @OneToMany(mappedBy = "orders")
     private Set<OrderCusPay> orderCusPays;
 
+    @ManyToOne // 추가된 판매자 관계  (07.10도혜추가)
+    @JoinColumn(name = "seller_id")
+    private Seller seller;
 
 }
