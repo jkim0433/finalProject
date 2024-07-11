@@ -51,6 +51,6 @@ public class SellerController {
         List<SellerImg> sellerImages = sellerImgService.getImagesBySellerId(sellerId);
         return ResponseEntity.ok(sellerImages);
     }
-
+// 오류연습
 
 }
