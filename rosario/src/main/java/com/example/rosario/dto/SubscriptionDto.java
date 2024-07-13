@@ -19,7 +19,7 @@ public class SubscriptionDto {
     private Long totalNum;          // 주문 총 이용 횟수
     private Long customerId;        // 고객 ID (FK)
     private Long sellerId;          // 판매자 ID (FK)
-    private Long deliveryCount;     // 배송 횟수
+    private Long deliveryCount;     // 배송 횟수 (FK)
     private Long remainCount;       // 남은 구독 횟수
     private String customerName;    // 고객 이름 (6월30일추가)
     private String customerPhoneNumber; // 고객 전화번호
@@ -34,9 +34,23 @@ public class SubscriptionDto {
         dto.setCustomerId(subscription.getCustomer().getCustomerId());
         dto.setSellerId(subscription.getSeller().getSellerId());
         dto.setDeliveryCount(subscription.getDeliveryCount());
+        //dto.setDeliveryCount(subscription.getDelivery().getDeliveryCount());//도경추가 delivery테이블조인으로 deliver_count는 delivery에서 불러오기
         dto.setRemainCount(subscription.getRemainCount());
         dto.setCustomerName(customerNm);
         dto.setCustomerPhoneNumber(customerCno);
         return dto;
+    }
+
+    //도경추가 모든 Subscription 내용불러오기("/api/subscribes")
+    public SubscriptionDto(Long subscribeId, Long ordersId, Date subscribeStDt, Long totalNum,
+                           Long customerId, Long sellerId, Long deliveryCount, Long remainCount){
+        this.subscribeId = subscribeId;
+        this.ordersId = ordersId;
+        this.subscribeStDt = subscribeStDt;
+        this.totalNum = totalNum;
+        this.customerId = customerId;
+        this.sellerId = sellerId;
+        this.deliveryCount = deliveryCount;
+        this.remainCount = remainCount;
     }
 }

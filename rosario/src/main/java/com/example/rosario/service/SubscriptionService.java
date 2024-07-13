@@ -2,6 +2,7 @@ package com.example.rosario.service;
 
 import com.example.rosario.dto.OrdersDto;
 import com.example.rosario.dto.SubscriptionDto;
+import com.example.rosario.dto.DeliveryDto;
 import com.example.rosario.entity.Customer;
 import com.example.rosario.entity.Subscription;
 import com.example.rosario.repository.CustomerRepository;
@@ -24,6 +25,26 @@ public class SubscriptionService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    //도경등록(0712), 모든구독자조회
+    public List<SubscriptionDto> getAllSubscription(){
+        List<Subscription> subscriptionList = subscriptionRepository.findAll();
+        return subscriptionList.stream().map(subscription -> new SubscriptionDto(
+                subscription.getSubscribeId(),
+                subscription.getOrders().getOrdersId(),
+                subscription.getSubscribeStDt(),
+                subscription.getOrders().getTotalNum(),
+                subscription.getCustomer().getCustomerId(),
+                subscription.getSeller().getSellerId(),
+                subscription.getDeliveryCount(),
+                subscription.getRemainCount()
+        ))
+                .collect(Collectors.toList());
+    }
+
+
+
+
     // 월별 구독 퍼센트 계산 메서드
     public double calculateSubscriptionPercentage(int year, int month) {
         // Double 타입으로 반환되는 메서드 호출

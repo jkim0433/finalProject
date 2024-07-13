@@ -45,7 +45,7 @@ public class Orders {
     private Set<OrderCusPay> orderCusPays;
 
     @ManyToOne // 추가된 판매자 관계  (07.10도혜추가)
-    @JoinColumn(name = "seller_id")
+    @JoinColumn(name = "seller_id",  nullable = false)
     private Seller seller;
 
 }

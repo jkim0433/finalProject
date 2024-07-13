@@ -8,8 +8,8 @@ import java.util.Date;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor //모든 필드를 포함하는 생성자를 생성, 오류나서 생략함(도경)
+@NoArgsConstructor //기본 생성자를 생성
 public class OrdersDto {
     private Long ordersId;
     private String ordersDescription;
@@ -36,10 +36,27 @@ public class OrdersDto {
         this.ordersId = ordersId;
         this.customerNm = customerNm;
         this.ordersDate = ordersDate;
-        this.totalAmount = totalAmount.longValue(); ;
+        this.totalAmount = totalAmount.longValue();
         this.subscriptionType = subscriptionType;
 
     }
+
+    //도경추가 모든 orders 내용 불러오기("/api/orders")
+    // 생성자: 모든 필드를 포함해야 하지만 table기준으로 항목만듬
+    public OrdersDto(Long ordersId, String ordersDescription, Long totalNum, Long ordersEA, String ordersAdr,
+                     Long customerId, Long productId, Date ordersDate,
+                     Long sellerId) {
+        this.ordersId = ordersId;
+        this.ordersDescription = ordersDescription;
+        this.totalNum = totalNum;
+        this.ordersEA = ordersEA;
+        this.ordersAdr = ordersAdr;
+        this.customerId = customerId;
+        this.productId = productId;
+        this.ordersDate = ordersDate;
+        this.sellerId = sellerId;
+    }
+
 
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 // 매출 조회 관련 service
 @Service
@@ -26,14 +27,35 @@ public class OrdersService {
     @Autowired
     private SellerRepository sellerRepository;
 
-    // 일별 매출 조회
-    public Long getDailySales(int year, int month, int day) {
-        return ordersRepository.getDailySales(year, month, day);
+    //도경 등록(0712), 모든주문조회
+    public List<OrdersDto> getAllOrders() {
+        List<Orders> ordersList = ordersRepository.findAll();
+
+        // Orders 객체를 OrdersDto로 변환하는 스트림 처리
+        return ordersList.stream()
+                .map(order -> new OrdersDto(
+                        order.getOrdersId(),
+                        order.getOrdersDescription(),
+                        order.getTotalNum(),
+                        order.getOrdersEA(),
+                        order.getOrdersAdr(),
+                        order.getCustomer().getCustomerId(),
+                        order.getProduct().getProductId(),
+                        order.getOrdersDate(),
+                        order.getSeller().getSellerId()
+                ))
+                .collect(Collectors.toList());
     }
 
-    // 월별 매출 조회
-    public Long getMonthlySales(int year, int month) {
-        return ordersRepository.getMonthlySales(year, month);
+
+    // 일별 매출 조회, sellerId추가(도경0712)
+    public Long getDailySales(Long sellerId, int year, int month, int day) {
+        return ordersRepository.getDailySales(sellerId, year, month, day);
+    }
+
+    // 월별 매출 조회, sellerId추가(도경0712)
+    public Long getMonthlySales(Long sellerId, int year, int month) {
+        return ordersRepository.getMonthlySales(sellerId, year, month);
     }
 
     // 분기별 매출 조회 메서드

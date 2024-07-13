@@ -17,6 +17,11 @@ import java.util.List;
 @RequestMapping("/api/subscribes")
 public class SubscriptionController {
 
+    //모든 subscribes내용 조회(도경추가0712)----------------------------
+    @GetMapping
+    public List<SubscriptionDto> getAllSubscription(){return subscriptionService.getAllSubscription();}
+    //-------------------------------------------------------------
+
     @Autowired
     private SubscriptionService subscriptionService;
 

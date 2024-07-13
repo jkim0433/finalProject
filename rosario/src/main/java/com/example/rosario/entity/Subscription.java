@@ -40,11 +40,20 @@ public class Subscription {
     @JoinColumn(name = "seller_id", nullable = false)
     private Seller seller;          // 판매자 ID (FK)
 
-    @Column(nullable = false)
-    private Long deliveryCount;     // 배송 횟수
+    //@Column(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY) //도경추가
+    @JoinColumn(name = "delivery_id", nullable = false) //도경추가
+    private Delivery delivery;     // 배송 횟수
 
     @Column(nullable = false)
     private Long remainCount;       // 남은 구독 횟수
+
+
+    //도경추가, delivery_count필드를 통해 Delivery엔티티의 값을 가져오는 메서드추가
+    @Transient
+    public Long getDeliveryCount(){
+        return delivery != null ? delivery.getDeliveryCount() : null;
+    }
 
     // constructors, getters, setters 생략
 }

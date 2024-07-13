@@ -4,6 +4,7 @@ import com.example.rosario.auth.JwtProvider;
 import com.example.rosario.dto.OrdersDto;
 import com.example.rosario.entity.Customer;
 import com.example.rosario.entity.Orders;
+import com.example.rosario.entity.Seller;
 import com.example.rosario.repository.CustomerRepository;
 import com.example.rosario.service.OrdersService;
 import com.example.rosario.service.SubscriptionService;
@@ -24,23 +25,40 @@ import java.util.Optional;
 public class OrdersController {
     @Autowired
     private OrdersService ordersService;
+
+    //모든orders내용 조회(도경추가0712)-------------------
+    @GetMapping
+    public List<OrdersDto> getAllOrders(){return ordersService.getAllOrders();}
+   //-------------------------------------------------
+
+
     @Autowired
     private JwtProvider jwtProvider; // jwtProvider 필드에 @Autowired 추가
     @Autowired
     private CustomerRepository customerRepository;
-    // 일별 매출 조회 API
-    @GetMapping("/term/daily/{year}/{month}/{day}")
-    public Long getDailySales(@PathVariable("year") int year, @PathVariable("month") int month, @PathVariable("day") int day){
-        return ordersService.getDailySales(year,month,day);
+    // 일별 매출 조회 API, sellerId추가(도경추가 0712)
+    @GetMapping("/term/daily/seller/{sellerId}/{year}/{month}/{day}")
+    public ResponseEntity<Long> getDailySales(@PathVariable("sellerId") Long sellerId, @PathVariable("year") int year, @PathVariable("month") int month, @PathVariable("day") int day){
+        Long dailySales = ordersService.getDailySales(sellerId, year, month, day);
+        return ResponseEntity.ok(dailySales);
     }
+//    @GetMapping("/term/daily/{year}/{month}/{day}")
+//    public Long getDailySales(@PathVariable("year") int year, @PathVariable("month") int month, @PathVariable("day") int day){
+//        return ordersService.getDailySales(year,month,day);
+//    }
 
 
 
-    // 월별 매출 조회 API
-    @GetMapping("/term/monthly/{year}/{month}")
-    public Long getMonthlySales(@PathVariable ("year") int year, @PathVariable ("month") int month) {
-        return ordersService.getMonthlySales(year, month);
+    // 월별 매출 조회 API, sellerId추가(도경 0712)
+    @GetMapping("/term/monthly/seller/{sellerId}/{year}/{month}")
+    public ResponseEntity<Long> getMonthlySales(@PathVariable("sellerId") Long sellerId, @PathVariable ("year") int year, @PathVariable ("month") int month) {
+        Long monthlySales = ordersService.getMonthlySales(sellerId, year, month);
+        return ResponseEntity.ok(monthlySales);
     }
+//    @GetMapping("/term/monthly/{year}/{month}")
+//    public Long getMonthlySales(@PathVariable ("year") int year, @PathVariable ("month") int month) {
+//        return ordersService.getMonthlySales(year, month);
+//    }
 
 
     // 분기별 매출 조회 API

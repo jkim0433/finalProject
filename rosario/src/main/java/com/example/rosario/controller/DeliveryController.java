@@ -24,9 +24,16 @@ public class DeliveryController {
     }
 
     @GetMapping("/{deliveryId}")
-    public Delivery getDeliveryById(@PathVariable Long deliveryId){
+    public Delivery getDeliveryById(@PathVariable("deliveryId") Long deliveryId){
         return deliveryService.getDeliveryById(deliveryId);
     }
+
+    //sellerId 기준으로 delivery 정보 불러오기
+    @GetMapping("/seller/{sellerId}")
+    public List<DeliveryDto> getDeliveriesBySellerId(@PathVariable("sellerId") Long sellerId) {
+        return deliveryService.getDeliveriesBySellerId(sellerId);
+    }
+
 
     //Other endpoints for CRUD operations
 }

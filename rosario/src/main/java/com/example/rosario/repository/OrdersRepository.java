@@ -2,6 +2,7 @@ package com.example.rosario.repository;
 
 import com.example.rosario.dto.OrdersDto;
 import com.example.rosario.entity.Orders;
+import com.example.rosario.entity.Seller;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,19 +12,19 @@ import java.util.List;
 // 매출량 조회와 구독자 및 비구독자 %, 리스트 쿼리문 repository
 public interface OrdersRepository extends JpaRepository<Orders, Long> {
 
-    // 하루의 매출량 조회쿼리
+    // sellerId기준 일별 매출액 조회쿼리(도경수정0712)
     @Query("SELECT SUM(o.ordersEA * p.productPrice) " +
             "FROM Orders o " +
             "JOIN o.product p " +
-            "WHERE FUNCTION('YEAR', o.ordersDate) = :year AND FUNCTION('MONTH', o.ordersDate) = :month AND FUNCTION('DAY', o.ordersDate) = :day")
-    Long getDailySales(@Param("year") int year, @Param("month") int month, @Param("day") int day);
+            "WHERE o.seller.sellerId= :sellerId AND FUNCTION('YEAR', o.ordersDate) = :year AND FUNCTION('MONTH', o.ordersDate) = :month AND FUNCTION('DAY', o.ordersDate) = :day")
+    Long getDailySales(@Param("sellerId") Long sellerId, @Param("year") int year, @Param("month") int month, @Param("day") int day);
 
-    // 한달의 매출량 조회쿼리
+    // sellerId기준 한달 매출액 조회쿼리(도경수정0712)
     @Query("SELECT SUM(o.ordersEA *  p.productPrice) " +
             "FROM Orders o " +
             "JOIN o.product p " +
-            "WHERE FUNCTION('YEAR', o.ordersDate) = :year AND FUNCTION('MONTH', o.ordersDate) = :month")
-    Long getMonthlySales(@Param("year") int year, @Param("month") int month);
+            "WHERE o.seller.sellerId= :sellerId AND FUNCTION('YEAR', o.ordersDate) = :year AND FUNCTION('MONTH', o.ordersDate) = :month")
+    Long getMonthlySales(@Param("sellerId") Long sellerId, @Param("year") int year, @Param("month") int month);
 
     // 분기의 매출량 조회쿼리
     @Query("SELECT SUM(o.ordersEA *  p.productPrice) " +
