@@ -1,7 +1,6 @@
 package com.example.rosario.service;
 
 import com.example.rosario.dto.ProductDetailDto;
-import com.example.rosario.dto.ProductDto;
 import com.example.rosario.entity.Product;
 import com.example.rosario.entity.ProductImg;
 import com.example.rosario.entity.ProductSeller;

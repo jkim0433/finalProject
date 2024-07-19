@@ -1,12 +1,10 @@
 package com.example.rosario.controller;
 
 import com.example.rosario.dto.ProductDetailDto;
-import com.example.rosario.dto.ProductDto;
 import com.example.rosario.entity.Product;
 import com.example.rosario.entity.ProductSeller;
 import com.example.rosario.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,6 @@
 package com.example.rosario.controller;
 import com.example.rosario.dto.OrdersDto;
 import com.example.rosario.dto.SubscriptionDto;
-import com.example.rosario.entity.Subscription;
 import com.example.rosario.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +48,31 @@ public class SubscriptionController {
         return ResponseEntity.ok(chartData);
     }
 
+    //연도별 원형차트 조회(도경추가0719)
+    @GetMapping("/type/yearly/{year}")
+    public ResponseEntity<YearlyChartData> getYearlyChart(@PathVariable("year") int year) {
+        YearlyChartData chartData = new YearlyChartData();
+
+        // 구독 퍼센트 계산
+        double subscriptionPercentageYear = subscriptionService.calculateYearlySubscriptionPercentage(year);
+        double unsubscribedPercentageYear = 100 - subscriptionPercentageYear;
+
+        // 데이터 설정
+        chartData.setSubscribedPercentageYear(subscriptionPercentageYear);
+        chartData.setUnsubscribedPercentageYear(unsubscribedPercentageYear);
+
+        // 구독 조회 및 설정
+        List<OrdersDto> subscribedListByYear = subscriptionService.getSubscribedListByYear(year);
+
+        // 비구독 조회 및 설정
+        List<OrdersDto> unsubscribedListByYear = subscriptionService.getUnsubscribedListByYear(year);
+
+        chartData.setSubscribedListByYear(subscribedListByYear);
+        chartData.setUnsubscribedListByYear(unsubscribedListByYear);
+
+        return ResponseEntity.ok(chartData);
+    }
+
 
     // 분기, 연도별 차트에 대한 API도 유사하게 구현 가능
 
@@ -63,7 +87,7 @@ public class SubscriptionController {
     // SellerId를 기준으로 구독자 리스트 조회
     @GetMapping("/subscriptions/{sellerId}")
     public ResponseEntity<List<SubscriptionDto>>getSubscriptionListBySellerId(@PathVariable("sellerId") Long sellerId) {
-       List<SubscriptionDto>subscriptionList = subscriptionService.getSubscriptionListBySellerId(sellerId);
+       List<SubscriptionDto> subscriptionList = subscriptionService.getSubscriptionListBySellerId(sellerId);
         return ResponseEntity.ok(subscriptionList);
         //HTTP 상태 코드 200(OK)를 클라이언트에게 반환
     }

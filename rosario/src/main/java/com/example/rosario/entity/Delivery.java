@@ -19,15 +19,15 @@ public class Delivery {
         @GeneratedValue(strategy = GenerationType.IDENTITY)  // 엔티티의 기본키 값을 자동으로 생성
         private Long deliveryId;       // 배송 ID
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "seller_id", nullable = false)
         private Seller seller;         // 사업주 ID (FK)
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "orders_id", nullable = false)
         private Orders orders;         // 주문 ID (FK)
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "customer_id", nullable = false)
         private Customer customer;     // 고객 ID (FK)
 

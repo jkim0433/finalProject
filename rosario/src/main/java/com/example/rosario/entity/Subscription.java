@@ -23,14 +23,15 @@ public class Subscription {
     @JoinColumn(name = "orders_id", nullable = false)
     private Orders orders;      // 주문 ID (FK)
 
-    @Column(nullable = false)
- //   @Temporal(TemporalType.DATE)
-    @Temporal(TemporalType.TIMESTAMP)  // 날짜와 시간 타입을 매핑 (여기서는 날짜와 시간 정보 모두 포함)- 도혜추가
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")   // 도혜추가
-    private Date subscribeStDt;     // 구독 시작일 (배송 요청 날짜)
+//    @Column(nullable = false)
+// //   @Temporal(TemporalType.DATE)
+//    @Temporal(TemporalType.TIMESTAMP)  // 날짜와 시간 타입을 매핑 (여기서는 날짜와 시간 정보 모두 포함)- 도혜추가
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")   // 도혜추가
+//    private Date subscribeStDt;     // 구독 시작일 (배송 요청 날짜)
 
-    @Column(nullable = false)
-    private Long totalNum;          // 주문 총 이용 횟수
+//    @Column(nullable = false)
+//    @JoinColumn(name = "")
+//    private Long totalNum;          // 주문 총 이용 횟수
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
@@ -53,6 +54,24 @@ public class Subscription {
     @Transient
     public Long getDeliveryCount(){
         return delivery != null ? delivery.getDeliveryCount() : null;
+    }
+
+    //도경추가, Orders엔티티 값을 가져오는 메서드 추가(orderId, totalNum)
+    @Transient
+    public Long getOrderId(){
+        return orders != null ? orders.getOrdersId() : null;
+    }
+
+    @Transient
+    public Long getTotalNum(){
+        return orders != null ? orders.getTotalNum() : 0;
+    }
+
+    //도경추가, subscribeStDt를 Delivery 엔티티의 deliveryRqDt로 가져오는 메서드 추가
+    @Transient
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    public Date getSubscribeStDt() {
+        return delivery != null ? delivery.getDeliveryRqDt() : null;
     }
 
     // constructors, getters, setters 생략

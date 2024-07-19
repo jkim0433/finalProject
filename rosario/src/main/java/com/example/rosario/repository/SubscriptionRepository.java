@@ -8,6 +8,6 @@ import java.util.List;
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
 
     // sellerId 찾기
-//    List<Subscription> findBySellerId(Long sellerId);
+    //List<Subscription> findBySellerId(Long sellerId);
     List<Subscription> findBySeller_SellerId(Long sellerId);
 }

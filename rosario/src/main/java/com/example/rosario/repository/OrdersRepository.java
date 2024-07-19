@@ -2,7 +2,6 @@ package com.example.rosario.repository;
 
 import com.example.rosario.dto.OrdersDto;
 import com.example.rosario.entity.Orders;
-import com.example.rosario.entity.Seller;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -50,7 +49,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     List<OrdersDto> findDailySalesList(@Param("year") int year, @Param("month") int month,  @Param("day") int day);
 
 
-    // ----------------- 구독과 관련된 쿼리 --------------------
+    // ----------------- 월단위 구독과 관련된 쿼리 --------------------
     // 구독자의 퍼센트 계산
     @Query(value = "SELECT " +
             "ROUND((SUM(CASE WHEN o.total_num >= 2 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)), 2) AS subscribed_percentage, " +
@@ -68,7 +67,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     List<OrdersDto> findSubscribedList(@Param("year") int year, @Param("month") int month);
 
     // 비구독자 리스트
-    @Query("SELECT NEW com.example.rosario.dto.OrdersDto(o.ordersId,c.customerNm, o.ordersDate, o.ordersEA * p.productPrice ,CASE WHEN o.totalNum >= 2  THEN '구독' ELSE '일반' END) " +
+    @Query("SELECT NEW com.example.rosario.dto.OrdersDto(o.ordersId, c.customerNm, o.ordersDate, o.ordersEA * p.productPrice ,CASE WHEN o.totalNum >= 2  THEN '구독' ELSE '일반' END) " +
             "FROM Orders o " +
             "JOIN o.product p " +
             "JOIN o.customer c " +
@@ -81,5 +80,32 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
 //
 //    @Query("SELECT COUNT(s) FROM Subscription s WHERE YEAR(s.subscribeStDt) = :year AND MONTH(s.subscribeStDt) = :month AND s.customer.id IS NULL")
 //    Long countUnsubscribedCustomers(@Param("year") int year, @Param("month") int month);
+
+
+
+    //----------------- 년단위 구독과 관련된 쿼리(도경추가) --------------------
+    //년단위 구독자 퍼센트 조회
+    @Query(value = "SELECT " +
+            "ROUND((SUM(CASE WHEN o.total_num >= 2 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)), 2) AS subscribed_percentage, " +
+            "ROUND((SUM(CASE WHEN o.total_num = 1 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)), 2) AS unsubscribed_percentage " +
+            "FROM orders o " +
+            "WHERE YEAR(o.orders_date) = :year", nativeQuery = true)
+    Double calculateYearlySubscriptionPercentage(@Param("year") int year);
+
+    // 년단위 구독자 리스트
+    @Query("SELECT NEW com.example.rosario.dto.OrdersDto(o.ordersId,c.customerNm, o.ordersDate, o.ordersEA * p.productPrice, CASE WHEN o.totalNum >= 2 THEN '구독' ELSE '일반' END ) " +
+            "FROM Orders o " +
+            "JOIN o.product p " +
+            "JOIN o.customer c " +
+            "WHERE FUNCTION('YEAR', o.ordersDate) = :year AND o.totalNum >= 2")
+    List<OrdersDto> findSubscribedListByYear(@Param("year") int year);
+
+    // 연도별 비구독자 리스트
+    @Query("SELECT NEW com.example.rosario.dto.OrdersDto(o.ordersId, c.customerNm, o.ordersDate, o.ordersEA * p.productPrice ,CASE WHEN o.totalNum >= 2  THEN '구독' ELSE '일반' END) " +
+            "FROM Orders o " +
+            "JOIN o.product p " +
+            "JOIN o.customer c " +
+            "WHERE FUNCTION('YEAR', o.ordersDate) = :year AND o.totalNum = 1")
+    List<OrdersDto> findUnsubscribedListByYear(@Param("year") int year);
 
 }

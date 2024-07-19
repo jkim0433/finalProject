@@ -2,8 +2,6 @@ package com.example.rosario.service;
 
 import com.example.rosario.dto.OrdersDto;
 import com.example.rosario.dto.SubscriptionDto;
-import com.example.rosario.dto.DeliveryDto;
-import com.example.rosario.entity.Customer;
 import com.example.rosario.entity.Subscription;
 import com.example.rosario.repository.CustomerRepository;
 import com.example.rosario.repository.OrdersRepository;
@@ -36,12 +34,33 @@ public class SubscriptionService {
                 subscription.getOrders().getTotalNum(),
                 subscription.getCustomer().getCustomerId(),
                 subscription.getSeller().getSellerId(),
-                subscription.getDeliveryCount(),
+                subscription.getDelivery().getDeliveryCount(),
                 subscription.getRemainCount()
         ))
                 .collect(Collectors.toList());
     }
 
+    //--------------------- 년도별 구독퍼센트 계산, 도경등록(0719)---------------
+    public double calculateYearlySubscriptionPercentage(int year) {
+        // Double 타입으로 반환되는 메서드 호출
+        // Repository를 통해 데이터베이스 쿼리 실행
+        Double subscribedPercentageYear = ordersRepository.calculateYearlySubscriptionPercentage(year);
+
+        // Null 체크 후 double 타입으로 변환하여 반환
+        // 결과가 null이 아니면 double로 변환하여 반환, null이면 0.0 반환
+        return subscribedPercentageYear != null ? subscribedPercentageYear : 0.0;
+    }
+
+    public List<OrdersDto> getSubscribedListByYear(int year){
+        //연도별 구독자 리스트 조회
+        return ordersRepository.findSubscribedListByYear(year);
+    }
+
+    public List<OrdersDto> getUnsubscribedListByYear(int year){
+        //연도별 비구독자 리스트 조회
+        return ordersRepository.findUnsubscribedListByYear(year);
+    }
+    //---------------------------------------------------------------------------
 
 
 
@@ -82,13 +101,21 @@ public class SubscriptionService {
     // SellerId를 기준으로 구독자 리스트 조회
     public List<SubscriptionDto> getSubscriptionListBySellerId(Long sellerId) {
         List<Subscription> subscriptions = subscriptionRepository.findBySeller_SellerId(sellerId);
-        return subscriptions.stream()
-                .map(subscription -> customerRepository.findById(subscription.getCustomer().getCustomerId())
-                        .map(customer -> SubscriptionDto.convertToDto(subscription, customer.getCustomerNm(), customer.getCustomerCno()))
-                        .orElse(null))
-                .filter(dto -> dto != null)
-                .collect(Collectors.toList());
+        return subscriptions.stream().map(subscription -> {
+            String customerNm = subscription.getCustomer().getCustomerNm();
+            String customerCno = subscription.getCustomer().getCustomerCno();
+            return SubscriptionDto.convertToDto(subscription, customerNm, customerCno);
+        }).collect(Collectors.toList());
     }
+//        public List<SubscriptionDto> getSubscriptionListBySellerId(Long sellerId) {
+//        List<Subscription> subscriptions = subscriptionRepository.findBySeller_SellerId(sellerId);
+//        return subscriptions.stream()
+//                .map(subscription -> customerRepository.findById(subscription.getCustomer().getCustomerId())
+//                        .map(customer -> SubscriptionDto.convertToDto(subscription, customer.getCustomerNm(), customer.getCustomerCno()))
+//                        .orElse(null))
+//                .filter(dto -> dto != null)
+//                .collect(Collectors.toList());
+//    }
     //    // SellerId를 기준으로 구독자 리스트 조회
     //    public List<SubscriptionDto> getSubscriptionListBySellerId(Long sellerId) {
     //        List<Subscription> subscriptions = subscriptionRepository.findBySellerId(sellerId);

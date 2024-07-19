@@ -5,7 +5,6 @@ import com.example.rosario.dto.CustomerDto;
 import com.example.rosario.entity.Customer;
 import com.example.rosario.service.CustomerService;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
