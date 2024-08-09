@@ -67,9 +67,9 @@ public class OrdersService {
         return ordersRepository.getYearlySales(year);
     }
 
-    // 금일 매출표
-    public List<OrdersDto> getTodaySalesList(int year, int month, int day) {
-        return ordersRepository.findDailySalesList(year, month, day);
+    // 금일 매출표 (도경 sellerId 추가 -0808)
+    public List<OrdersDto> getTodaySalesList(Long sellerId, int year, int month, int day) {
+        return ordersRepository.findDailySalesList(sellerId, year, month, day);
     }
 
     // 일반 주문서를 위한 Dto

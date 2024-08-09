@@ -76,10 +76,10 @@ public class OrdersController {
 //        return sales;
     }
 
-    // 금일 매출표
-    @GetMapping("/term/daily/details/{year}/{month}/{day}")
-    public List<OrdersDto> getDailySalesDetails(@PathVariable("year") int year, @PathVariable("month") int month, @PathVariable("day") int day){
-        return ordersService.getTodaySalesList(year,month,day);
+    // 금일 매출표, 도경수정(sellerId별로 금일매출 불러오기-0808)
+    @GetMapping("/term/daily/details/seller/{sellerId}/{year}/{month}/{day}")
+    public List<OrdersDto> getDailySalesDetails(@PathVariable("sellerId") Long sellerId, @PathVariable("year") int year, @PathVariable("month") int month, @PathVariable("day") int day){
+        return ordersService.getTodaySalesList(sellerId, year,month,day);
     }
 
     // 일반 주문서
