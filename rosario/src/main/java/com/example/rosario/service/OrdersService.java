@@ -72,6 +72,11 @@ public class OrdersService {
         return ordersRepository.findDailySalesList(sellerId, year, month, day);
     }
 
+    // 월별 매출표 (도경 sellerId 추가 -0815)
+    public List<OrdersDto> getMonthlySalesList(Long sellerId, int year, int month) {
+        return ordersRepository.findMonthlySalesList(sellerId, year, month);
+    }
+
     // 일반 주문서를 위한 Dto
     // Product, Customer, Seller 객체를 데이터베이스에서 실제로 조회하여 사용하게 됩니다. 이는 데이터의 일관성을 유지하는 데 도움이 되며,
     // 존재하지 않는 ID를 사용하려고 할 때 오류를 발생시켜 잘못된 데이터 입력을 방지

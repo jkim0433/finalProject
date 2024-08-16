@@ -48,6 +48,14 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
             "WHERE o.seller.sellerId= :sellerId AND FUNCTION('YEAR', o.ordersDate) = :year AND FUNCTION('MONTH', o.ordersDate) = :month AND FUNCTION('DAY', o.ordersDate) = :day")
     List<OrdersDto> findDailySalesList(@Param("sellerId") Long sellerId, @Param("year") int year, @Param("month") int month,  @Param("day") int day);
 
+    // 월별 매출표
+    @Query("SELECT NEW com.example.rosario.dto.OrdersDto(o.ordersId,c.customerNm, o.ordersDate, o.ordersEA * p.productPrice, CASE WHEN o.totalNum >= 2  THEN '구독' ELSE '일반' END) " +
+            "FROM Orders o " +
+            "JOIN o.product p " +
+            "JOIN o.customer c " +
+            "WHERE o.seller.sellerId= :sellerId AND FUNCTION('YEAR', o.ordersDate) = :year AND FUNCTION('MONTH', o.ordersDate) = :month")
+    List<OrdersDto> findMonthlySalesList(@Param("sellerId") Long sellerId, @Param("year") int year, @Param("month") int month);
+
 
     // ----------------- 월단위 구독과 관련된 쿼리 --------------------
     // 구독자의 퍼센트 계산

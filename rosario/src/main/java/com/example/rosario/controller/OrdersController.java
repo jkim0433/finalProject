@@ -82,6 +82,12 @@ public class OrdersController {
         return ordersService.getTodaySalesList(sellerId, year,month,day);
     }
 
+    // 월별 매출표, 도경수정(sellerId별로 월별매출 불러오기-0815)
+    @GetMapping("/term/daily/details/seller/{sellerId}/{year}/{month}")
+    public List<OrdersDto> getMonthlySalesDetails(@PathVariable("sellerId") Long sellerId, @PathVariable("year") int year, @PathVariable("month") int month){
+        return ordersService.getMonthlySalesList(sellerId, year,month);
+    }
+
     // 일반 주문서
 //    @PostMapping("/create")
 //    public ResponseEntity<Orders> createOrdersFromDTO(@RequestBody OrdersDto ordersDto) {
