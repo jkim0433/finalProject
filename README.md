@@ -1,6 +1,8 @@
 ROSARIO FINAL PROJECT
 
-<img width="542" alt="5" src="https://github.com/user-attachments/assets/0fb15bca-92e0-4a66-9c12-b0df18e6e363">
+
+<img width="1000" alt="6" src="https://github.com/user-attachments/assets/83627329-5038-4822-9b89-23dd31fee3c9">
+
 
 -4인이 참여한 꽃 배달 구독 서비스 웹 사이트입니다.
 
